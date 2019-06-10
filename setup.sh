@@ -3,13 +3,13 @@ ConfiguracionDelAmbienteDeTrabajo()
 {
 	carpeta="/var"
 	ex=0
-	if test -d $carpeta
+	if test -d $carpeta/DataConfiguracionABMusuariosSO
 	then
 		echo "La carpeta ya existe, ¿desea sobre escribir? (1= si 0=no)"
 		read d		
 		if test $d -eq 1
 		then
-			rm -rf carpeta
+			rm -rf $carpeta/DataConfiguracionABMusuariosSO
 			ex=1			
 		else
 			echo "Operacion cancelada"	
@@ -34,17 +34,17 @@ ConfiguracionDelAmbienteDeTrabajo()
 		ln setup.sh /root/setup.sh
 		mkdir Backup Temp
 		cd $ruta 
-		if test $(grep -e "^Operario:" etc/passwd| wc -l) -eq 0
+		if test $(grep -e "^Operario:" /etc/passwd| wc -l) -eq 0
 		then
 			useradd Operario
 		fi
 
-		if test $(grep -e "^Trasportista:" etc/passwd| wc -l) -eq 0
+		if test $(grep -e "^Trasportista:" /etc/passwd| wc -l) -eq 0
 		then
 			useradd Trasportista
 		fi	
 
-		if test $(grep -e "^Administrador:" etc/passwd| wc -l) -eq 0
+		if test $(grep -e "^Administrador:" /etc/passwd| wc -l) -eq 0
 		then
 			useradd Administrador
 		fi
@@ -116,7 +116,7 @@ then
 
 		ConfiguracionDelAmbienteDeTrabajo
 	fi
+
 else
-	echo "Solo el root puede ejecutar este software"
-fi	
-	
+	echo "Debe ser root para ejecutar este software"
+fi
