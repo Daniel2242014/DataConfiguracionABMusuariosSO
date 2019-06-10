@@ -1,7 +1,7 @@
 #!/bin/bash
 ConfiguracionDelAmbienteDeTrabajo()
 {
-	carpeta="/var/automotora"
+	carpeta="/var"
 	ex=0
 	if test -d $carpeta
 	then
@@ -24,7 +24,7 @@ ConfiguracionDelAmbienteDeTrabajo()
 		cd $carpeta
 		git clone https://github.com/Daniel2242014/DataConfiguracionABMusuariosSO
 	
-		if test -f /etc/ArchivoConfiguracionAutomotora
+		if ! test -f /etc/ArchivoConfiguracionAutomotora
 		then
 			touch '/etc/ArchivoConfiguracionAutomotora'
 		fi
@@ -32,33 +32,30 @@ ConfiguracionDelAmbienteDeTrabajo()
 		echo "$carpeta">/etc/ArchivoConfiguracionAutomotora
 		cd DataConfiguracionABMusuariosSO/
 		ln setup.sh /root/setup.sh
+		mkdir Backup Temp
 		cd $ruta 
-		
-		if test $(grep -e "^Operario:" etc/passwd| wc -l) -eq 1
+		if test $(grep -e "^Operario:" etc/passwd| wc -l) -eq 0
 		then
 			useradd Operario
 		fi
 
-		if test $(grep -e "^Trasportista:" etc/passwd| wc -l) -eq 1
+		if test $(grep -e "^Trasportista:" etc/passwd| wc -l) -eq 0
 		then
 			useradd Trasportista
 		fi	
 
-		if test $(grep -e "^Administrador:" etc/passwd| wc -l) -eq 1
+		if test $(grep -e "^Administrador:" etc/passwd| wc -l) -eq 0
 		then
 			useradd Administrador
 		fi
 		echo "Proseso terminado con exito, revise la carpeta /root para acceder al panel setup de la aplicacion"
+		rm -f setup.sh
+		exit
 	fi
 
 
 }
 
-FInstalar()
-{
-	echo "Primero debe instalar el software, toque enter para continuar"
-	read ff
-}
 
 if test $USER = "root"
 then
@@ -87,7 +84,7 @@ then
 		source ./sub_shell/listarGrupos.sh 
 		source ./sub_shell/Preferencias.sh 
 		source ./sub_shell/ConfiguracionDelAmbienteDeTrabajo.sh 
-
+		carpetaBase=$(cat /etc/ArchivoConfiguracionAutomotora)
 		respuesta="" #El dato pasado por los return solo puede ser numerico, entonces utilizamos una variable externa donde se cargen las salidas, como si fuera un $? pero con mayor capasidad 
 
 		echo "   _____________________________________________  "
@@ -120,5 +117,6 @@ then
 		ConfiguracionDelAmbienteDeTrabajo
 	fi
 else
-	echo "Debe ser root para ejecutar este software"
-fi
+	echo "Solo el root puede ejecutar este software"
+fi	
+	
