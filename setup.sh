@@ -14,6 +14,7 @@ ConfiguracionDelAmbienteDeTrabajo()
 			if test $d -eq 1 2> /dev/null
 			then
 				rm -rf $carpeta/DataConfiguracionABMusuariosSO
+				rm -f /root/setup.sh
 				ex=1			
 			else
 				echo "Operacion cancelada"	
