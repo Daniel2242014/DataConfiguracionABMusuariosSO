@@ -36,6 +36,7 @@ ConfiguracionDelAmbienteDeTrabajo()
 
 			echo "$carpeta/DataConfiguracionABMusuariosSO">/etc/ArchivoConfiguracionAutomotora
 			cd DataConfiguracionABMusuariosSO/
+			rm -f $ruta/setup.sh
 			ln setup.sh /root/setup.sh
 			mkdir Backup Temp
 			cd $ruta 
@@ -54,7 +55,7 @@ ConfiguracionDelAmbienteDeTrabajo()
 				useradd Administrador
 			fi
 			echo "Proseso terminado con exito, revise la carpeta /root para acceder al panel setup de la aplicacion"
-			rm -f setup.sh
+			
 			exit
 		fi
 	fi
