@@ -79,16 +79,16 @@ then
 		source $carpetaBase/lib/UDI.sh
 		source $carpetaBase/lib/userE.sh
 		source $carpetaBase/lib/fechacal.sh
-		source $carpetaBase//sub_shell/agregarUsuario.sh 
-		source $carpetaBase//sub_shell/ModificarUsuario.sh 
-		source $carpetaBase//sub_shell/eliminarUsuario.sh
-		source $carpetaBase//sub_shell/listarUsuarios.sh 
-		source $carpetaBase//sub_shell/agregarGrupo.sh 
-		source $carpetaBase//sub_shell/ModificarGrupo.sh 
-		source $carpetaBase//sub_shell/EliminarGrupo.sh 
-		source $carpetaBase//sub_shell/listarGrupos.sh 
-		source $carpetaBase//sub_shell/Preferencias.sh 
-		source $carpetaBase//sub_shell/ConfiguracionDelAmbienteDeTrabajo.sh 
+		source $carpetaBase/sub_shell/agregarUsuario.sh 
+		source $carpetaBase/sub_shell/ModificarUsuario.sh 
+		source $carpetaBase/sub_shell/eliminarUsuario.sh
+		source $carpetaBase/sub_shell/listarUsuarios.sh 
+		source $carpetaBase/sub_shell/agregarGrupo.sh 
+		source $carpetaBase/sub_shell/ModificarGrupo.sh 
+		source $carpetaBase/sub_shell/EliminarGrupo.sh 
+		source $carpetaBase/sub_shell/listarGrupos.sh 
+		source $carpetaBase/sub_shell/Preferencias.sh 
+
 
 		respuesta="" #El dato pasado por los return solo puede ser numerico, entonces utilizamos una variable externa donde se cargen las salidas, como si fuera un $? pero con mayor capasidad 
 
