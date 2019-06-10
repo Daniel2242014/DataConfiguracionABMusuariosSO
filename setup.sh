@@ -29,7 +29,7 @@ ConfiguracionDelAmbienteDeTrabajo()
 			touch '/etc/ArchivoConfiguracionAutomotora'
 		fi
 
-		echo "$carpeta">/etc/ArchivoConfiguracionAutomotora
+		echo "$carpeta/DataConfiguracionABMusuariosSO">/etc/ArchivoConfiguracionAutomotora
 		cd DataConfiguracionABMusuariosSO/
 		ln setup.sh /root/setup.sh
 		mkdir Backup Temp
