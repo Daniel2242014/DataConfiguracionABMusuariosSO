@@ -69,7 +69,7 @@ desinstalar()
 			rm -f /etc/profile.d/z_ABMConfiguration.sh #eliminamo el archivo de configuracion del PATH
 		fi
 	
-		PATH=$(echo $PATH | sed -e 's/\/var\/DataConfiguracionABMusuariosSO\/://g') #Elimina la ublicacion de la inlstalacion del path 
+		PATH=$(echo $PATH | sed -e 's/:\/var\/DataConfiguracionABMusuariosSO\///g') #Elimina la ublicacion de la inlstalacion del path 
 		export PATH
 		if test $(grep -e "^Operario:" /etc/passwd| wc -l) -eq 1 # si el usuario operario existe 
  		then
@@ -85,11 +85,12 @@ desinstalar()
 		then
 			userdel Administrador #Elimina al administrador si exsiste 
 		fi
-		echo "Proseso terminado con exito"	
-		read f	
+			
 		if test -z $1
 		then 
-			exit #Cierra el shell si es una re instalacion 
+			echo "Proseso terminado con exito"	
+			read f
+			exit #Cierra el shell si es una densistalacion
 		fi	
 }
 
