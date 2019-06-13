@@ -64,13 +64,14 @@ desinstalar()
 		then
 			rm -rf /var/DataConfiguracionABMusuariosSO/ #Eliminamos el directorio donde esta instalado el software
 		fi		
-		if test -f /etc/profile.d/z_ABMConfiguration
+		if test -f /etc/profile.d/z_ABMConfiguration.sh
 		then
 			rm -f /etc/profile.d/z_ABMConfiguration.sh #eliminamo el archivo de configuracion del PATH
 		fi
 	
 		PATH=$(echo $PATH | sed -e 's/:\/var\/DataConfiguracionABMusuariosSO\///g') #Elimina la ublicacion de la inlstalacion del path 
 		export PATH
+		source /etc/profile
 		if test $(grep -e "^Operario:" /etc/passwd| wc -l) -eq 1 # si el usuario operario existe 
  		then
 			userdel Operario #Elimina al operario si exsiste 
