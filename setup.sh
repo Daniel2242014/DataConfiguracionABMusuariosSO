@@ -54,6 +54,7 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 		fi
 		chmod 700 /var/DataConfiguracionABMusuariosSO 	
 		echo "Proseso terminado con exito, ejecute setup.sh desde la consola"
+		rm -f ./setup.sh
 	fi
 
 }
