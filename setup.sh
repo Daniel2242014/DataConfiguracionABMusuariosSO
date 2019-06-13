@@ -124,7 +124,7 @@ then
 			source /var/DataConfiguracionABMusuariosSO/sub_shell/EliminarGrupo.sh 
 			source /var/DataConfiguracionABMusuariosSO/sub_shell/listarGrupos.sh 
 			source /var/DataConfiguracionABMusuariosSO/sub_shell/Preferencias.sh 
-
+			carpetaBase='/var/DataConfiguracionABMusuariosSO/'
 
 			respuesta="" #El dato pasado por los return solo puede ser numerico, entonces utilizamos una variable externa donde se cargen las salidas, como si fuera un $? pero con mayor capasidad 
 
@@ -139,7 +139,7 @@ then
 			# se carga un array con los nombre de las opciones del menu 
 			nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar')
 			# se carga el nombre de los metodos que llaman dichas opciones 
-			direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'desinstalar'  'ConfiguracionDelAmbienteDeTrabajo')
+			direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar')
 
 			menu 'nombres[@]' 'direcionesSetUp[@]' #se llama al metodo menu 
 
