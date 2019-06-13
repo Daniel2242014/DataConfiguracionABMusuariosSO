@@ -27,14 +27,12 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 		git clone https://github.com/Daniel2242014/DataConfiguracionABMusuariosSO
 		#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
 
-		cd DataConfiguracionABMusuariosSO/ #entramos dentro de la carpeta de instalacion
-		
-		echo "PATH=$PATH:/var/DataConfiguracionABMusuariosSO/" >> /etc/profile #Lo mueve a profile para permitir que cuando reinicie se vuelva a cargar el path corectamente
-		echo "export PATH" >> /etc/profile
+		touch /etc/profile.d/z_ABMConfiguration
+		echo "export PATH=$PATH:/var/DataConfiguracionABMusuariosSO/" > /etc/profile.d/z_ABMConfiguration
 		PATH="$PATH:/var/DataConfiguracionABMusuariosSO/" #cambia PATH, con SH no te permite hacerlo, por eso debe usar source el usuario 
 		export PATH #Exporta PATH
-		mkdir Backup Temp #Creamos la carpeta BackUp y Temp 
-		cd $ruta 
+		cd $ruta
+		mkdir /var/DataConfiguracionABMusuariosSO/Temp #Creamos la carpeta BackUp y Temp 
 		if test $(grep -e "^Operario:" /etc/passwd| wc -l) -eq 0 # si el usuario operario existe 
  		then
 			useradd Operario #Este usuario se crea para el acceso de los operarios al sistema
@@ -62,11 +60,15 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 desinstalar()
 {
 		#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
- 		if test -d var/DataConfiguracionABMusuariosSO/
+ 		if test -d /var/DataConfiguracionABMusuariosSO/
 		then
 			rm -rf /var/DataConfiguracionABMusuariosSO/ #entramos dentro de la carpeta de instalacion
 		fi		
-		grep -ve "PATH=\|export PATH" /etc/profile > /etc/profile #Sustituye profile con todo lo que no involucre el path
+		if test -f /etc/profile.d/z_ABMConfiguration
+		then
+			rm -f /etc/profile.d/z_ABMConfiguration
+		fi
+	
 		PATH=$(echo $PATH | sed -e 's/\/var\/DataConfiguracionABMusuariosSO\/://g') #Elimina la ublicacion de la inlstalacion del path 
 		export PATH
 		if test $(grep -e "^Operario:" /etc/passwd| wc -l) -eq 1 # si el usuario operario existe 
@@ -166,5 +168,3 @@ else
 	
 	echo "No puede ejecuar este shell script con el comando 'sh' use source o el nombre del archivo setup.sh"
 fi
-
-
