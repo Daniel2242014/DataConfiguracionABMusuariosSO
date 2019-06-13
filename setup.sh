@@ -64,7 +64,7 @@ desinstalar()
 		#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
  		if test -d var/DataConfiguracionABMusuariosSO/
 		then
-			rm -f /var/DataConfiguracionABMusuariosSO/ #entramos dentro de la carpeta de instalacion
+			rm -rf /var/DataConfiguracionABMusuariosSO/ #entramos dentro de la carpeta de instalacion
 		fi		
 		grep -ve "PATH=\|export PATH" /etc/profile > /etc/profile #Sustituye profile con todo lo que no involucre el path
 		PATH=$(echo $PATH | sed -e 's/\/var\/DataConfiguracionABMusuariosSO\/://g') #Elimina la ublicacion de la inlstalacion del path 
