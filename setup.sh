@@ -27,8 +27,8 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 		git clone https://github.com/Daniel2242014/DataConfiguracionABMusuariosSO
 		#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
 
-		touch /etc/profile.d/z_ABMConfiguration
-		echo "export PATH=$PATH:/var/DataConfiguracionABMusuariosSO/" > /etc/profile.d/z_ABMConfiguration
+		touch /etc/profile.d/z_ABMConfiguration.sh
+		echo "export PATH=$PATH:/var/DataConfiguracionABMusuariosSO/" > /etc/profile.d/z_ABMConfiguration.sh
 		PATH="$PATH:/var/DataConfiguracionABMusuariosSO/" #cambia PATH, con SH no te permite hacerlo, por eso debe usar source el usuario 
 		export PATH #Exporta PATH
 		cd $ruta
@@ -66,7 +66,7 @@ desinstalar()
 		fi		
 		if test -f /etc/profile.d/z_ABMConfiguration
 		then
-			rm -f /etc/profile.d/z_ABMConfiguration
+			rm -f /etc/profile.d/z_ABMConfiguration.sh
 		fi
 	
 		PATH=$(echo $PATH | sed -e 's/\/var\/DataConfiguracionABMusuariosSO\/://g') #Elimina la ublicacion de la inlstalacion del path 
