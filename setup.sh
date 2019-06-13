@@ -125,7 +125,7 @@ then
 			source /var/DataConfiguracionABMusuariosSO/sub_shell/EliminarGrupo.sh 
 			source /var/DataConfiguracionABMusuariosSO/sub_shell/listarGrupos.sh 
 			source /var/DataConfiguracionABMusuariosSO/sub_shell/Preferencias.sh 
-			carpetaBase='/var/DataConfiguracionABMusuariosSO/'
+			carpetaBase='/var/DataConfiguracionABMusuariosSO'
 
 			respuesta="" #El dato pasado por los return solo puede ser numerico, entonces utilizamos una variable externa donde se cargen las salidas, como si fuera un $? pero con mayor capasidad 
 
