@@ -71,7 +71,6 @@ desinstalar()
 	
 		PATH=$(echo $PATH | sed -e 's/:\/var\/DataConfiguracionABMusuariosSO\///g') #Elimina la ublicacion de la inlstalacion del path 
 		export PATH
-		source /etc/profile
 		if test $(grep -e "^Operario:" /etc/passwd| wc -l) -eq 1 # si el usuario operario existe 
  		then
 			userdel Operario #Elimina al operario si exsiste 
@@ -91,7 +90,7 @@ desinstalar()
 		then 
 			echo "Proseso terminado con exito"	
 			read f
-			exit #Cierra el shell si es una densistalacion
+			verifMenu=-1
 		fi	
 }
 
