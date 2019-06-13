@@ -27,7 +27,7 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 		git clone https://github.com/Daniel2242014/DataConfiguracionABMusuariosSO
 		#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
 
-		touch /etc/profile.d/z_ABMConfiguration.sh
+		touch /etc/profile.d/z_ABMConfiguration.sh #Creamos un archivo de configuracion del PATH en /etc/profile.d
 		echo "export PATH=$PATH:/var/DataConfiguracionABMusuariosSO/" > /etc/profile.d/z_ABMConfiguration.sh
 		PATH="$PATH:/var/DataConfiguracionABMusuariosSO/" #cambia PATH, con SH no te permite hacerlo, por eso debe usar source el usuario 
 		export PATH #Exporta PATH
@@ -35,19 +35,19 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 		mkdir /var/DataConfiguracionABMusuariosSO/Temp #Creamos la carpeta BackUp y Temp 
 		if test $(grep -e "^Operario:" /etc/passwd| wc -l) -eq 0 # si el usuario operario existe 
  		then
-			useradd Operario #Este usuario se crea para el acceso de los operarios al sistema
+			useradd Operario 2> /dev/null #Este usuario se crea para el acceso de los operarios al sistema
 			echo "ope_bit2019" | passwd --stdin Operario > /dev/null #Se le asigna la contraseña al operario
 		fi
 
 		if test $(grep -e "^Trasportista:" /etc/passwd| wc -l) -eq 0 #si el usuario trasportisa existe 
 		then
-			useradd Trasportista #Este usuario se crea para el acceso de los trasportista al sistema
+			useradd Trasportista 2> /dev/null #Este usuario se crea para el acceso de los trasportista al sistema
 			echo "tras_bit2019" | passwd --stdin Trasportista > /dev/null #Se le asigna la contraseña al trasportista 
 		fi	
 
 		if test $(grep -e "^Administrador:" /etc/passwd| wc -l) -eq 0
 		then
-			useradd Administrador #Este usuario se crea para el acceso de los administradores al sistema 
+			useradd Administrador 2> /dev/null #Este usuario se crea para el acceso de los administradores al sistema 
 			echo "admin_bit2019" | passwd --stdin Administrador > /dev/null #Se le asigna la contraseña al administrador
 		fi
 		chmod 700 /var/DataConfiguracionABMusuariosSO 	
@@ -62,11 +62,11 @@ desinstalar()
 		#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
  		if test -d /var/DataConfiguracionABMusuariosSO/
 		then
-			rm -rf /var/DataConfiguracionABMusuariosSO/ #entramos dentro de la carpeta de instalacion
+			rm -rf /var/DataConfiguracionABMusuariosSO/ #Eliminamos el directorio donde esta instalado el software
 		fi		
 		if test -f /etc/profile.d/z_ABMConfiguration
 		then
-			rm -f /etc/profile.d/z_ABMConfiguration.sh
+			rm -f /etc/profile.d/z_ABMConfiguration.sh #eliminamo el archivo de configuracion del PATH
 		fi
 	
 		PATH=$(echo $PATH | sed -e 's/\/var\/DataConfiguracionABMusuariosSO\/://g') #Elimina la ublicacion de la inlstalacion del path 
