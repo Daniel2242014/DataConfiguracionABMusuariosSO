@@ -11,7 +11,7 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 		read d		
 		if test $d -eq 1 2> /dev/null #En caso que desde sobre escribir se prosedera con lo sigiente
 		then
-			desinstalar '1'
+			desinstalar '1' #Elimina la insltalacion actual 
 			ex=1			
 		else
 			echo "Operacion cancelada"	
@@ -29,10 +29,10 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 
 		cd DataConfiguracionABMusuariosSO/ #entramos dentro de la carpeta de instalacion
 		
-		echo "PATH=$PATH:/var/DataConfiguracionABMusuariosSO/" >> /etc/profile
+		echo "PATH=$PATH:/var/DataConfiguracionABMusuariosSO/" >> /etc/profile #Lo mueve a profile para permitir que cuando reinicie se vuelva a cargar el path corectamente
 		echo "export PATH" >> /etc/profile
-		PATH="$PATH:/var/DataConfiguracionABMusuariosSO/"
-		export PATH
+		PATH="$PATH:/var/DataConfiguracionABMusuariosSO/" #cambia PATH, con SH no te permite hacerlo, por eso debe usar source el usuario 
+		export PATH #Exporta PATH
 		mkdir Backup Temp #Creamos la carpeta BackUp y Temp 
 		cd $ruta 
 		if test $(grep -e "^Operario:" /etc/passwd| wc -l) -eq 0 # si el usuario operario existe 
@@ -66,65 +66,62 @@ desinstalar()
 		then
 			rm -f /var/DataConfiguracionABMusuariosSO/ #entramos dentro de la carpeta de instalacion
 		fi		
-		grep -ve "PATH=\|export PATH" /etc/profile > /etc/profile
-		PATH=$(echo $PATH | sed -e 's/\/var\/DataConfiguracionABMusuariosSO\/://g')
+		grep -ve "PATH=\|export PATH" /etc/profile > /etc/profile #Sustituye profile con todo lo que no involucre el path
+		PATH=$(echo $PATH | sed -e 's/\/var\/DataConfiguracionABMusuariosSO\/://g') #Elimina la ublicacion de la inlstalacion del path 
 		export PATH
 		if test $(grep -e "^Operario:" /etc/passwd| wc -l) -eq 1 # si el usuario operario existe 
  		then
-			userdel Operario 
+			userdel Operario #Elimina al operario si exsiste 
 		fi
 
 		if test $(grep -e "^Trasportista:" /etc/passwd| wc -l) -eq 1 #si el usuario trasportisa existe 
 		then
-			userdel Trasportista 
+			userdel Trasportista #Elimina al trasportista si exsiste 
 		fi	
 
 		if test $(grep -e "^Administrador:" /etc/passwd| wc -l) -eq 1
 		then
-			userdel Administrador 
+			userdel Administrador #Elimina al administrador si exsiste 
 		fi
 		echo "Proseso terminado con exito"	
 		read f	
 		if test -z $1
 		then 
-			exit
+			exit #Cierra el shell si es una re instalacion 
 		fi	
 }
 
 
-if test $(w |tail -$[$(w | wc -l)-2] | grep "sh setup" | wc -l) -eq 0
+if test $(w |tail -$[$(w | wc -l)-2] | grep "sh setup" | wc -l) -eq 0 #comprueba que se ejecute con source 
 then
 	
-	if test $USER = "root" 
+	if test $USER = "root" # Debe ser el usuario root quien utilice el shell 
 	then
-		echo $PATH | grep "/var/DataConfiguracionABMusuariosSO/"|wc -l
-        echo $PATH
-	read f
-		if test $(echo $PATH | grep "/var/DataConfiguracionABMusuariosSO/"|wc -l) -eq 1  #Si existe este archivo, significa que el sistema fue instalado, de todas formas se puede volver a reinstalar el software 
+		if test $(echo $PATH | grep "/var/DataConfiguracionABMusuariosSO/"|wc -l) -eq 1  #revisa que este la ubicacion de la instalacion 
 		then
 			clear
 			#Se importan un conjunto de archivos llenos de metodos a utilizar en la ABM
-			source ./lib/lib_menu.sh
-			source ./lib/lib_error.sh
-			source ./lib/DT.sh
-			source ./lib/expiracionUsuario.sh
-			source ./lib/GP.sh
-			source ./lib/GS.sh
-			source ./lib/NDiasHasta.sh
-			source ./lib/pass.sh
-			source ./lib/shell.sh
-			source ./lib/UDI.sh
-			source ./lib/userE.sh
-			source ./lib/fechacal.sh
-			source ./sub_shell/agregarUsuario.sh 
-			source ./sub_shell/ModificarUsuario.sh 
-			source ./sub_shell/eliminarUsuario.sh
-			source ./sub_shell/listarUsuarios.sh 
-			source ./sub_shell/agregarGrupo.sh 
-			source ./sub_shell/ModificarGrupo.sh 
-			source ./sub_shell/EliminarGrupo.sh 
-			source ./sub_shell/listarGrupos.sh 
-			source ./sub_shell/Preferencias.sh 
+			source /var/DataConfiguracionABMusuariosSO/lib/lib_menu.sh
+			source /var/DataConfiguracionABMusuariosSO/lib/lib_error.sh
+			source /var/DataConfiguracionABMusuariosSO/lib/DT.sh
+			source /var/DataConfiguracionABMusuariosSO/lib/expiracionUsuario.sh
+			source /var/DataConfiguracionABMusuariosSO/lib/GP.sh
+			source /var/DataConfiguracionABMusuariosSO/lib/GS.sh
+			source /var/DataConfiguracionABMusuariosSO/lib/NDiasHasta.sh
+			source /var/DataConfiguracionABMusuariosSO/lib/pass.sh
+			source /var/DataConfiguracionABMusuariosSO/lib/shell.sh
+			source /var/DataConfiguracionABMusuariosSO/lib/UDI.sh
+			source /var/DataConfiguracionABMusuariosSO/lib/userE.sh
+			source /var/DataConfiguracionABMusuariosSO/lib/fechacal.sh
+			source /var/DataConfiguracionABMusuariosSO/sub_shell/agregarUsuario.sh 
+			source /var/DataConfiguracionABMusuariosSO/sub_shell/ModificarUsuario.sh 
+			source /var/DataConfiguracionABMusuariosSO/sub_shell/eliminarUsuario.sh
+			source /var/DataConfiguracionABMusuariosSO/sub_shell/listarUsuarios.sh 
+			source /var/DataConfiguracionABMusuariosSO/sub_shell/agregarGrupo.sh 
+			source /var/DataConfiguracionABMusuariosSO/sub_shell/ModificarGrupo.sh 
+			source /var/DataConfiguracionABMusuariosSO/sub_shell/EliminarGrupo.sh 
+			source /var/DataConfiguracionABMusuariosSO/sub_shell/listarGrupos.sh 
+			source /var/DataConfiguracionABMusuariosSO/sub_shell/Preferencias.sh 
 
 
 			respuesta="" #El dato pasado por los return solo puede ser numerico, entonces utilizamos una variable externa donde se cargen las salidas, como si fuera un $? pero con mayor capasidad 
@@ -169,4 +166,5 @@ else
 	
 	echo "No puede ejecuar este shell script con el comando 'sh' use source o el nombre del archivo setup.sh"
 fi
+
 
