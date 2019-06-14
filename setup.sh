@@ -26,7 +26,7 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 		cd $carpeta #Nos movemos a /var
 		git clone https://github.com/Daniel2242014/DataConfiguracionABMusuariosSO
 		#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
-
+		mv /var/DataConfiguracionABMusuariosSO/Titular.sh /etc/profile.d/Titular.sh 
 		touch /etc/profile.d/z_ABMConfiguration.sh #Creamos un archivo de configuracion del PATH en /etc/profile.d
 		echo "export PATH=$PATH:/var/DataConfiguracionABMusuariosSO/" > /etc/profile.d/z_ABMConfiguration.sh
 		PATH="$PATH:/var/DataConfiguracionABMusuariosSO/" #cambia PATH, con SH no te permite hacerlo, por eso debe usar source el usuario 
@@ -50,12 +50,16 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 			useradd Administrador 2> /dev/null #Este usuario se crea para el acceso de los administradores al sistema 
 			echo "admin_bit2019" | passwd --stdin Administrador > /dev/null #Se le asigna la contraseña al administrador
 		fi
+		
 		chmod 700 /var/DataConfiguracionABMusuariosSO 	
+		echo "Bienvenido al servidor del sistema SLTA" > /etc/issue
+		echo "Ingrese su usuario y contraseña" >> /etc/issue
 		echo "Proseso terminado con exito, ejecute setup.sh desde la consola"
 		rm -f ./setup.sh
 	fi
 
 }
+
 
 desinstalar()
 {
@@ -69,6 +73,11 @@ desinstalar()
 			rm -f /etc/profile.d/z_ABMConfiguration.sh #eliminamo el archivo de configuracion del PATH
 		fi
 	
+		if test -f /etc/profile.d/Titular.sh
+		then
+			rm -f /etc/profile.d/Titular.sh #se elimina el titular 
+		fi
+
 		PATH=$(echo $PATH | sed -e 's/:\/var\/DataConfiguracionABMusuariosSO\///g') #Elimina la ublicacion de la inlstalacion del path 
 		export PATH
 		if test $(grep -e "^Operario:" /etc/passwd| wc -l) -eq 1 # si el usuario operario existe 
@@ -85,7 +94,7 @@ desinstalar()
 		then
 			userdel Administrador #Elimina al administrador si exsiste 
 		fi
-			
+		echo "" > /etc/issue	
 		if test -z $1
 		then 
 			echo "Proseso terminado con exito"	
@@ -175,4 +184,3 @@ else
 	
 	echo "No puede ejecuar este shell script con el comando 'sh' use source o el nombre del archivo setup.sh"
 fi
-
