@@ -54,6 +54,7 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 		echo "Ingrese su usuario y contraseña" >> /etc/issue
 		echo "Proseso terminado con exito, ejecute setup.sh desde la consola"
 		rm -f ./setup.sh
+		verifMenu=-1
 	fi
 }
 
