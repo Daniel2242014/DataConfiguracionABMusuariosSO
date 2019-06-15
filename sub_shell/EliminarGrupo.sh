@@ -17,7 +17,7 @@ eliminarGrupo() #Esta funcion es la encargada de la eliminacion de los grupos de
 				echo "Grupo eliminado con exito"
 				verif5=1 #Rompe bucle	
 			else
-				echo "El usuario no existe "
+				echo "El grupo no existe "
 			fi
 		else
 			echo "No se realizaran modificacione" 
