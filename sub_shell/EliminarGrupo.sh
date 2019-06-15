@@ -11,7 +11,7 @@ eliminarGrupo() #Esta funcion es la encargada de la eliminacion de los grupos de
 		read dato
 		if ! test -z $dato #Comprueba que la entrada no sea vacia
 		then 
-			if test $(grep -e "^$dato:" '/etc/group' | wc -l) -eq 1 #comprueba que realmente exista dicho grupo 
+			if test $(cut -d: -f1,3 '/etc/group' | grep -e "^$dato:[1-9][0-9]\{3\}$" | wc -l) -eq 1 #comprueba que realmente exista dicho grupo 
 			then
 				groupdel $dato 2> /dev/null #Elimina el grupo 
 				echo "Grupo eliminado con exito"
