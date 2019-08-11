@@ -36,6 +36,7 @@ then
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/listarGrupos.sh 
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/Preferencias.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/uninstall.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/cambiarLlaveSsh.sh
 
 		    carpetaBase='/var/DataConfiguracionABMusuariosSO'
 
@@ -51,28 +52,12 @@ then
 		    echo "" 
 		    # se carga un array con los nombre de las opciones del menu 
 
-		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar')
-		    # se carga el nombre de los metodos que llaman dichas opciones 
-		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar')
+		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh')
+		    # se carga el nombre de los metodos que llaman dichas opciones
+		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave')
 		    menu 'nombres[@]' 'direcionesSetUp[@]' #se llama al metodo menu 
-		else
-		    echo "   _____________________________________________  "
-		    echo "   |                                           | "
-		    echo "   |                                           | "
-		    echo "   |           ABM usuarios y grupos           | "
-		    echo "   |                  por Bit                  | "
-		    echo "   |                                           | "
-		    echo "   |___________________________________________| "
-		    echo "" 
-		    echo "debe instalar el softare para utilizarlo" 
-		    echo "Desea comenzar el proseso de instalacion? (1= si 0=no)"
-		    read de		
-		    if test $de -eq 1 2> /dev/null #Comprueba que el dato ingresado sea 1
-		    then
-			ConfiguracionDelAmbienteDeTrabajo #se prosesde con la instalacion del sistema 
-		    fi	
-		fi
-	    fi	
+		fi	
+	    fi
 	fi
     else
 	echo "Debe ser root para ejecutar este software"
