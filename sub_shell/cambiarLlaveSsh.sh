@@ -1,4 +1,30 @@
+function sudoUserFunction()
+{
+    LUser=$2
+    if test -z $LUser
+    then
+	return
+    elif test "$LUser" == "root"
+    then
+	echo "No puede acceder a esta función como root"
+    else
+	FUNC=$(declare -f $1)
+	sudo -u $LUser -c 'bash -xc "$FUNC; $@"'
+    fi
+}
+
 function cambiarLlave()
+{
+    usr=$(verifUser)
+    if test -z "$usr"
+    then
+	return
+    fi
+    echo "Por favor, almacene la nueva clave privada del usuario en /tmp/pub_key-$usr.enc"
+    sudoUserFunction cambiarLlave_USER() /tmp/pub_key-$usr.enc
+}
+
+function cambiarLlave_USER()
 {
     echo -n "Sólo podrá cambiar su clave si posee la clave anterior. Desea continuar? [S/n] "
     read input
@@ -18,20 +44,8 @@ function cambiarLlave()
 	read -s pass
 	if [ "$pass" == "$mypwd" ];
 	then
-	    echo "La clave fue validada con éxito"
-	    echo -n "Inserte la contraseña de la nueva clave privada: "
-	    read newpwd
-	    ssh-keygen -b 2048 -t rsa -n "$newpwd" -f ~/.ssh/newkey
-	    echo "Conéctese via scp y copie a su computadora el archivo '/root/.ssh/newkey'. El mismo es su nueva clave privada. También puede copiar el archivo '/root/.ssh/newkey.pub' si desea utilizar esta clave pública en otros servidores. UNA VEZ QUE USTED CONFIRME, SERÁ ELIMINADA LA CLAVE PRIVADA DE ESTE SERVIDOR."
-	    cf="n"
-	    while [ "$cf" != "Y" ]
-	    do
-		echo -n "Listo? [Y/n] "
-		read cf
-	    done
-	    rm ~/.ssh/newkey
-	    mv ~/.ssh/newkey.pub ~/.ssh/authorized_keys
-	    echo "Su nueva llave ha sido configurada. Por favor conéctese nuevamente."
+	    echo "Clave verificada con éxito"
+	    cp $1 ~/ssh/authorized_keys
 	else
 	    echo "No pudo validarse la clave."
 	fi
