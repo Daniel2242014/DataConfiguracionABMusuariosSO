@@ -54,7 +54,6 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 	echo "Bienvenido al servidor del sistema SLTA" > /etc/issue #Cargamos issue para el aviso previo al logeo 
 	echo "Ingrese su usuario y contraseña" >> /etc/issue
 	echo "Proseso terminado con exito, ejecute setup.sh desde la consola"
-	rm -f ./setup.sh
 	verifMenu=-1
     fi
 }
