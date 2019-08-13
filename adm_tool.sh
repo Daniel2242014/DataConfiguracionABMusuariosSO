@@ -38,6 +38,7 @@ then
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/uninstall.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/cambiarLlaveSsh.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/estadoRedes.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/estadoSockets.sh
 
 		    carpetaBase='/var/DataConfiguracionABMusuariosSO'
 
@@ -53,9 +54,9 @@ then
 		    echo "" 
 		    # se carga un array con los nombre de las opciones del menu 
 
-		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Redes')
+		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Redes' 'Estado_Sockets')
 		    # se carga el nombre de los metodos que llaman dichas opciones
-		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'estadoRedes')
+		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'estadoRedes' 'socketList')
 		    menu 'nombres[@]' 'direcionesSetUp[@]' #se llama al metodo menu 
 		fi	
 	    fi
