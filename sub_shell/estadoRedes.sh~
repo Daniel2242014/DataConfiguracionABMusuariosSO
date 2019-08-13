@@ -1,0 +1,16 @@
+function estadoRedes() {
+    ip addr | grep "BROADCAST" while read network
+    do
+	dev=$(echo $network | cut -d':' -f2 | cut -d' ' -f2)
+	addr=$(ip addr show dev $network | grep 'inet ' | cut -d' ' -f6)
+	brdc=$(ipcalc $addr | grep "Network" | cut -d' ' -f4)
+	stat=$(ip addr show dev $network | grep "state" | cut -d' ' -f9)
+	gtwy=$(ip route show dev $network | grep "default" | cut -d' ' -f3)
+	echo "Dispositivo: $dev ($addr), broadcast $brdc está $STAT"
+	if [ "$stat" == "UP" ];
+	then
+	    echo $gtwy
+	fi
+    done
+    
+}

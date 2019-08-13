@@ -21,7 +21,7 @@ function cambiarLlave()
 	return
     fi
     echo "Por favor, almacene la nueva clave privada del usuario en /tmp/pub_key-$usr.enc"
-    sudoUserFunction cambiarLlave_USER() /tmp/pub_key-$usr.enc
+    sudoUserFunction cambiarLlave_USER /tmp/pub_key-$usr.enc
 }
 
 function cambiarLlave_USER()
