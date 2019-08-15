@@ -1,27 +1,21 @@
-function sudoUserFunction()
-{
-    LUser=$2
-    if test -z $LUser
-    then
-	return
-    elif test "$LUser" == "root"
-    then
-	echo "No puede acceder a esta función como root"
-    else
-	FUNC=$(declare -f $1)
-	sudo -u $LUser -c 'bash -xc "$FUNC; $@"'
-    fi
-}
-
 function cambiarLlave()
 {
-    usr=$(verifUser)
+    verifUser
+    usr=$respuesta
     if test -z "$usr"
     then
 	return
     fi
-    echo "Por favor, almacene la nueva clave privada del usuario en /tmp/pub_key-$usr.enc"
-    sudoUserFunction cambiarLlave_USER /tmp/pub_key-$usr.enc
+    if ! test -f "~$usr/.ssh/authorized_keys"
+    then
+	echo "El usuario $usr no tiene una clave SSH configurada. Por favor utilice la función de _agregar_ clave ssh"
+    else
+        echo "Por favor, almacene la nueva clave privada del usuario en /tmp/pub_key-$usr.enc"
+	read ff
+	chown $usr:root /tmp/pub_key-$usr.enc
+	chmod 640 /tmp/pub_key-$usr.enc
+        sudoUserFunction $usr cambiarLlave_USER /tmp/pub_key-$usr.enc
+    fi
 }
 
 function cambiarLlave_USER()
@@ -45,7 +39,8 @@ function cambiarLlave_USER()
 	if [ "$pass" == "$mypwd" ];
 	then
 	    echo "Clave verificada con éxito"
-	    cp $1 ~/ssh/authorized_keys
+	    cp $1 ~/.ssh/authorized_keys
+	    chmod 644 ~/.ssh/authorized_keys
 	else
 	    echo "No pudo validarse la clave."
 	fi

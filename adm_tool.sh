@@ -26,6 +26,7 @@ then
 		    source /var/DataConfiguracionABMusuariosSO/lib/UDI.sh
 		    source /var/DataConfiguracionABMusuariosSO/lib/userE.sh
 		    source /var/DataConfiguracionABMusuariosSO/lib/fechacal.sh
+		    source /var/DataConfiguracionABMusuariosSO/lib/sudoUser.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/agregarUsuario.sh 
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/ModificarUsuario.sh 
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/eliminarUsuario.sh
@@ -41,6 +42,8 @@ then
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/estadoSockets.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/listaProcesos.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/matarProceso.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/configurarRed.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/crearLlaveSsh.sh
 
 		    carpetaBase='/var/DataConfiguracionABMusuariosSO'
 
@@ -56,9 +59,9 @@ then
 		    echo "" 
 		    # se carga un array con los nombre de las opciones del menu 
 
-		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Redes' 'Estado_Sockets' 'Lista_Procesos' 'Matar_Proceso')
+		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Redes' 'Estado_Sockets' 'Lista_Procesos' 'Matar_Proceso' 'Configurar_Redes')
 		    # se carga el nombre de los metodos que llaman dichas opciones
-		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'estadoRedes' 'socketList' 'listaProcesos' 'killProc')
+		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'estadoRedes' 'socketList' 'listaProcesos' 'killProc' 'configurarRed')
 		    menu 'nombres[@]' 'direcionesSetUp[@]' #se llama al metodo menu 
 		fi	
 	    fi
