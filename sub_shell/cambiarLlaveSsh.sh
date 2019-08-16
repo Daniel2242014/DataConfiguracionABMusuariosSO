@@ -6,11 +6,12 @@ function cambiarLlave()
     then
 	return
     fi
-    if ! test -f "~$usr/.ssh/authorized_keys"
+    uhome=$(getenv passwd $usr | cut -d: -f6)
+    if ! test -f "$uhome/.ssh/authorized_keys"
     then
 	echo "El usuario $usr no tiene una clave SSH configurada. Por favor utilice la función de _agregar_ clave ssh"
     else
-        echo "Por favor, almacene la nueva clave privada del usuario en /tmp/pub_key-$usr.enc"
+        echo "Por favor, almacene la nueva clave publica del usuario en /tmp/pub_key-$usr.enc"
 	read ff
 	chown $usr:root /tmp/pub_key-$usr.enc
 	chmod 640 /tmp/pub_key-$usr.enc
