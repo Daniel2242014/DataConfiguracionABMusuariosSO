@@ -3,7 +3,7 @@ function estadoRedes() {
     do
 	dev=$(echo $network | cut -d' ' -f2 | tr -dC 'A-Za-z0-9')
 	addr=$(ip addr show dev $dev | grep 'inet ' | cut -d' ' -f6)
-	brdc=$(ipcalc $addr | grep "Network" | cut -d' ' -f4)
+	brdc=$(ipcalc -b $addr | cut -d'=' -f2)
 	stat=$(ip addr show dev $dev | grep "state" | cut -d' ' -f9)
 	gtwy=$(ip route show dev $dev | grep "default" | cut -d' ' -f3)
 	echo -n "Dispositivo: $dev"

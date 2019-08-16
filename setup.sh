@@ -23,8 +23,9 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
     then
 	ruta=$(pwd) #guardamos en la variable ruta la direcion actual donde se ejecuto el setup de instalacion 
 	cd $carpeta #Nos movemos a /var
-	git clone http://gitlab.esi.edu.uy/Bit/ABM.git
-	mv ABM DataConfiguracionABMusuariosSO
+	#git clone http://gitlab.esi.edu.uy/Bit/ABM.git
+	mkdir DataConfiguracionABMusuariosSO
+	cp -r $ruta/* DataConfiguracionABMusuariosSO/
 	#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
 	mv /var/DataConfiguracionABMusuariosSO/Titular.sh /etc/profile.d/Titular.sh #Mueve el titular a profile.d, de esta forma se ejecuta al inicio del sistema
 	touch /etc/profile.d/z_ABMConfiguration.sh #Creamos un archivo de configuracion del PATH en /etc/profile.d
@@ -53,7 +54,7 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 	chmod 700 /var/DataConfiguracionABMusuariosSO 	
 	echo "Bienvenido al servidor del sistema SLTA" > /etc/issue #Cargamos issue para el aviso previo al logeo 
 	echo "Ingrese su usuario y contraseña" >> /etc/issue
-	echo "Proseso terminado con exito, ejecute setup.sh desde la consola"
+	echo "Proseso terminado con exito, ejecute 'source /var/DataConfiguracionABMusuariosSO/adm_tool.sh' desde la consola"
 	verifMenu=-1
     fi
 }
