@@ -23,7 +23,7 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
     then
 	ruta=$(pwd) #guardamos en la variable ruta la direcion actual donde se ejecuto el setup de instalacion 
 	cd $carpeta #Nos movemos a /var
-	git clone http://gitlab.esi.edu.uy/Bit/ABM
+	git clone http://gitlab.esi.edu.uy/Bit/ABM.git
 	mv ABM DataConfiguracionABMusuariosSO
 	#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
 	mv /var/DataConfiguracionABMusuariosSO/Titular.sh /etc/profile.d/Titular.sh #Mueve el titular a profile.d, de esta forma se ejecuta al inicio del sistema
@@ -73,7 +73,7 @@ then
 	    then
 		echo "ha instalado el sistema sin usar source, salga y vuelva a ingresar al sistema"
 	    else
-		if test $(echo $PATH | grep "/var/DataConfiguracionABMusuariosSO/"|wc -l) -eq 1  #revisa que este la ubicacion de la instalacion 
+		if [ -d "/var/DataConfiguracionABMusuariosSO" ] #revisa que este la ubicacion de la instalacion 
 		then
 		    echo "El ABM ya está instalado. Por favor ejecútelo utilizando source adm_tool.sh"
 		else
