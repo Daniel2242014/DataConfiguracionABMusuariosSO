@@ -26,6 +26,9 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 	#git clone http://gitlab.esi.edu.uy/Bit/ABM.git
 	mkdir DataConfiguracionABMusuariosSO
 	cp -r $ruta/* DataConfiguracionABMusuariosSO/
+	ln -s /var/DataConfiguracionABMusuariosSO/bkupScript.sh /sbin/bkupScript.sh
+	chmod u+x /sbin/bkupScript.sh
+	echo "0 0 * * * root bkupScript.sh" >> /etc/crontab
 	#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
 	mv /var/DataConfiguracionABMusuariosSO/Titular.sh /etc/profile.d/Titular.sh #Mueve el titular a profile.d, de esta forma se ejecuta al inicio del sistema
 	touch /etc/profile.d/z_ABMConfiguration.sh #Creamos un archivo de configuracion del PATH en /etc/profile.d
@@ -76,7 +79,7 @@ then
 	    else
 		if [ -d "/var/DataConfiguracionABMusuariosSO" ] #revisa que este la ubicacion de la instalacion 
 		then
-		    echo "El ABM ya está instalado. Por favor ejecútelo utilizando source adm_tool.sh"
+		    source /var/DataConfiguracionABMusuariosSO/adm_tool.sh
 		else
 		    echo "   _____________________________________________  "
 		    echo "   |                                           | "

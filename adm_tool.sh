@@ -44,10 +44,14 @@ then
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/matarProceso.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/configurarRed.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/crearLlaveSsh.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/listarLogs.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/calendarioBackups.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/listarBackups.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/usuariosViaSsh.sh
 
 		    carpetaBase='/var/DataConfiguracionABMusuariosSO'
 
-		    respuesta="" #El dato pasado por los return solo puede ser numerico, entonces utilizamos una variable externa donde se cargen las salidas, como si fuera un $? pero con mayor capasidad 
+		    respuesta="" #El dato pasado por los return solo puede ser numerico, entonces utilizamos una variable externa donde se cargen las salidas, como si fuera un $? pero con mayor capasidad
 
 		    echo "   _____________________________________________  "
 		    echo "   |                                           | "
@@ -57,12 +61,12 @@ then
 		    echo "   |                                           | "
 		    echo "   |___________________________________________| "	
 		    echo "" 
-		    # se carga un array con los nombre de las opciones del menu 
+		    # se carga un array con los nombre de las opciones del menu
 
-		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Redes' 'Estado_Sockets' 'Lista_Procesos' 'Matar_Proceso' 'Configurar_Redes' 'Crear_Llave_Ssh')
+		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Redes' 'Estado_Sockets' 'Lista_Procesos' 'Matar_Proceso' 'Configurar_Redes' 'Crear_Llave_Ssh' 'Log_Exitoso' 'Log_Fallido' 'Calendario_Backups' 'Listar_Backups' 'Listar_Usuarios_SSH')
 		    # se carga el nombre de los metodos que llaman dichas opciones
-		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'estadoRedes' 'socketList' 'listaProcesos' 'killProc' 'configurarRed' 'crearLlaveSsh')
-		    menu 'nombres[@]' 'direcionesSetUp[@]' #se llama al metodo menu 
+		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'estadoRedes' 'socketList' 'listaProcesos' 'killProc' 'configurarRed' 'crearLlaveSsh' 'listarWtmp' 'listarBtmp' 'calendarioBackups' 'listarBackups' 'usuariosViaSsh')
+		    menu 'nombres[@]' 'direcionesSetUp[@]' #se llama al metodo menu
 		fi	
 	    fi
 	fi

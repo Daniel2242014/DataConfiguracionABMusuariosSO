@@ -5,4 +5,5 @@ function socketList()
     sockets=$(echo $socketdata | head -n +11)
     echo "Sockets TCP:$tcpcount"
     echo $sockets
+    read ff
 }
