@@ -27,6 +27,7 @@ then
 		    source /var/DataConfiguracionABMusuariosSO/lib/userE.sh
 		    source /var/DataConfiguracionABMusuariosSO/lib/fechacal.sh
 		    source /var/DataConfiguracionABMusuariosSO/lib/sudoUser.sh
+		    source /var/DataConfiguracionABMusuariosSO/lib/allowed.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/agregarUsuario.sh 
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/ModificarUsuario.sh 
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/eliminarUsuario.sh
@@ -48,6 +49,9 @@ then
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/calendarioBackups.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/listarBackups.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/usuariosViaSsh.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/habilitarSsh.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/deshabilitarSsh.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/estadoServicios.sh
 
 		    carpetaBase='/var/DataConfiguracionABMusuariosSO'
 
@@ -63,9 +67,9 @@ then
 		    echo "" 
 		    # se carga un array con los nombre de las opciones del menu
 
-		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Redes' 'Estado_Sockets' 'Lista_Procesos' 'Matar_Proceso' 'Configurar_Redes' 'Crear_Llave_Ssh' 'Log_Exitoso' 'Log_Fallido' 'Calendario_Backups' 'Listar_Backups' 'Listar_Usuarios_SSH')
+		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Redes' 'Estado_Sockets' 'Lista_Procesos' 'Matar_Proceso' 'Configurar_Redes' 'Crear_Llave_Ssh' 'Log_Exitoso' 'Log_Fallido' 'Calendario_Backups' 'Listar_Backups' 'Listar_Usuarios_SSH' 'Habilitar_Usuario_SSH' 'Deshabilitar_Usuario_SSH' 'Estado_Servicios')
 		    # se carga el nombre de los metodos que llaman dichas opciones
-		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'estadoRedes' 'socketList' 'listaProcesos' 'killProc' 'configurarRed' 'crearLlaveSsh' 'listarWtmp' 'listarBtmp' 'calendarioBackups' 'listarBackups' 'usuariosViaSsh')
+		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'estadoRedes' 'socketList' 'listaProcesos' 'killProc' 'configurarRed' 'crearLlaveSsh' 'listarWtmp' 'listarBtmp' 'calendarioBackups' 'listarBackups' 'usuariosViaSsh' 'habilitarSsh' 'deshabilitarSsh' 'estadoServicios')
 		    menu 'nombres[@]' 'direcionesSetUp[@]' #se llama al metodo menu
 		fi	
 	    fi

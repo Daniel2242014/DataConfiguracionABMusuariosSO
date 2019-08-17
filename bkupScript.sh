@@ -6,7 +6,13 @@ function crearTotal()
     cd /
     bname=total_$(date +%d-%m-%Y)
     tar cvzf var/backups/$bname.tgz -g var/backups/$bname.snar opt/informix var/log home
-    cp var/backups/$bname.snar var/backups/latest.snar
+    if ! [ -f "var/backups/backups.csv" ]
+    then
+	echo NOMBRE,DEPENDENCIA > var/backups/backups.csv
+    fi
+    echo $bname,null >> var/backups/backups.csv
+    echo $bname > var/backups/last_total
+    echo $bname > var/backups/latest
     cd $curdir
 }
 
@@ -14,12 +20,17 @@ function crearDiferencial()
 {
     curdir=$(pwd)
     cd /
-    last_total=$(ls -t var/backups/total*.tgz | head -1 | cut -d. -f1)
+    last_total=$(cat var/backups/last_total)
     last_date=$(echo $last_total | cut -d_ -f2)
-    bname=diferencial_$(date +%d-%m-%Y)_based_on_$(last_date)
+    bname=diferencial_$(date +%d-%m-%Y)
     cp var/backups/$last_total.snar var/backups/$bname.snar
     tar cvzf var/backups/$bname.tgz -g var/backups/$bname.snar opt/informix var/log home
-    cp var/backups/$bname.snar var/backups/latest.snar
+    if ! [ -f "var/backups/backups.csv" ]
+    then
+	echo NOMBRE,DEPENDENCIA > var/backups/backups.csv
+    fi
+    echo $bname,$last_total >> var/backups/backups.csv
+    echo $bname > var/backups/latest
     cd $curdir
 }
 
@@ -27,12 +38,17 @@ function crearIncremental()
 {
     curdir=$(pwd)
     cd /
-    last=$(ls -t var/backups/*.snar | grep -vE "latest" | head -1 | cut -d. -f1)
+    last=$(cat var/backups/latest)
     last_date=$(echo $last | cut -d_ -f2)
-    bname=incremental_$(date +%d-%m-%Y)_based_on_$(last_date)
+    bname=incremental_$(date +%d-%m-%Y)
     cp var/backups/$last.snar var/backups/$bname.snar
     tar cvzf var/backups/$bname.tgz -g var/backups/$bname.snar opt/informix var/log
-    cp var/backups/$bname.snar var/backups/latest.snar
+    if ! [ -f "var/backups/backups.csv" ]
+    then
+	echo NOMBRE,DEPENDENCIA > var/backups/backups.csv
+    fi
+    echo $bname,$last >> var/backups/backups.csv
+    echo $bname >> var/backups/latest
     cd $curdir
 }
 
@@ -45,16 +61,21 @@ else
     then
 	if [ $[$(date +%V)%2] -eq 1 ]
 	then
-	    if [ $(date +%d) -lt 8 ]
-	    then
-		rm -f /var/backups/incremental_* 2>/dev/null
-	    fi
 	    crearTotal
-	else
-	    crearDiferencial
 	fi
     else
-	crearIncremental
+	diaSemana=$(date +%u)
+	if [ $[$(date +%V)%2] -eq 0 ]
+	then
+	    diaSemana=$[$diaSemana + 7]
+	fi
+	diaSemana=$[$diaSemana % 3]
+	if [ $diaSemana -eq 2 ]
+	then
+	    crearDiferencial
+	else
+	    crearIncremental
+	fi
     fi
 fi
 echo "Backup creado: $bname"
