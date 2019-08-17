@@ -2,7 +2,7 @@ if test $(git --help 2>/dev/null | wc -l ) -ne 0
 then
     if test $USER = "root" # Debe ser el usuario root quien utilice el shell 
     then
-	if test test $(echo $PATH | grep "/var/DataConfiguracionABMusuariosSO/"|wc -l) -eq 1 && ! test -f /etc/profile.d/z_ABMConfiguration.sh
+	if test $(echo $PATH | grep "/var/DataConfiguracionABMusuariosSO/"|wc -l) -eq 1 && ! test -f /etc/profile.d/z_ABMConfiguration.sh
 	then
 	    echo "El sistema ha sido eliminado utilizando setup llamado con el comando sh"
 	    echo "Use el comando 'exit' para volver a ingresar al sistema y luego ejecute este software nuevamente"
@@ -67,9 +67,9 @@ then
 		    echo "" 
 		    # se carga un array con los nombre de las opciones del menu
 
-		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Redes' 'Estado_Sockets' 'Lista_Procesos' 'Matar_Proceso' 'Configurar_Redes' 'Crear_Llave_Ssh' 'Log_Exitoso' 'Log_Fallido' 'Calendario_Backups' 'Listar_Backups' 'Listar_Usuarios_SSH' 'Habilitar_Usuario_SSH' 'Deshabilitar_Usuario_SSH' 'Estado_Servicios')
+		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Redes' 'Estado_Sockets' 'Lista_Procesos' 'Matar_Proceso' 'Configurar_Redes' 'Crear_Llave_Ssh' 'Log_Exitoso' 'Log_Fallido' 'Calendario_Backups' 'Listar_Backups' 'Listar_Usuarios_SSH' 'Habilitar_Usuario_SSH' 'Deshabilitar_Usuario_SSH' 'Estado_Servicios' 'Buscar_Servicio')
 		    # se carga el nombre de los metodos que llaman dichas opciones
-		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'estadoRedes' 'socketList' 'listaProcesos' 'killProc' 'configurarRed' 'crearLlaveSsh' 'listarWtmp' 'listarBtmp' 'calendarioBackups' 'listarBackups' 'usuariosViaSsh' 'habilitarSsh' 'deshabilitarSsh' 'estadoServicios')
+		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'estadoRedes' 'socketList' 'listaProcesos' 'killProc' 'configurarRed' 'crearLlaveSsh' 'listarWtmp' 'listarBtmp' 'calendarioBackups' 'listarBackups' 'usuariosViaSsh' 'habilitarSsh' 'deshabilitarSsh' 'estadoServicios' 'buscarServicio')
 		    menu 'nombres[@]' 'direcionesSetUp[@]' #se llama al metodo menu
 		fi	
 	    fi

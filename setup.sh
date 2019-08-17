@@ -26,9 +26,12 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 	#git clone http://gitlab.esi.edu.uy/Bit/ABM.git
 	mkdir DataConfiguracionABMusuariosSO
 	cp -r $ruta/* DataConfiguracionABMusuariosSO/
+	unlink /sbin/bkupScript.sh
 	ln -s /var/DataConfiguracionABMusuariosSO/bkupScript.sh /sbin/bkupScript.sh
 	chmod u+x /sbin/bkupScript.sh
+	sed -i '/0 0 * * * root bkupScript.sh/d' /etc/crontab
 	echo "0 0 * * * root bkupScript.sh" >> /etc/crontab
+	echo "" > /etc/ssh/allowed
 	#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
 	mv /var/DataConfiguracionABMusuariosSO/Titular.sh /etc/profile.d/Titular.sh #Mueve el titular a profile.d, de esta forma se ejecuta al inicio del sistema
 	touch /etc/profile.d/z_ABMConfiguration.sh #Creamos un archivo de configuracion del PATH en /etc/profile.d
@@ -63,12 +66,11 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 }
 
 
-
 if test $(git --help 2>/dev/null | wc -l ) -ne 0
 then
     if test $USER = "root" # Debe ser el usuario root quien utilice el shell 
     then
-	if test test $(echo $PATH | grep "/var/DataConfiguracionABMusuariosSO/"|wc -l) -eq 1 && ! test -f /etc/profile.d/z_ABMConfiguration.sh
+	if test $(echo $PATH | grep "/var/DataConfiguracionABMusuariosSO/"|wc -l) -eq 1 && ! test -f /etc/profile.d/z_ABMConfiguration.sh
 	then
 	    echo "El sistema ha sido eliminado utilizando setup llamado con el comando sh"
 	    echo "Use el comando 'exit' para volver a ingresar al sistema y luego ejecute este software nuevamente"

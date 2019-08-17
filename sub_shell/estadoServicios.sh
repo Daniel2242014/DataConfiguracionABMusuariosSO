@@ -1,3 +1,64 @@
+function desactivarServicio()
+{
+    if systemctl disable $sname.service
+    then
+	echo "Servicio desactivado"
+    else
+	echo "Error desconocido: $?"
+    fi
+    read a
+}
+
+function activarServicio()
+{
+    if systemctl enable $sname.service
+    then
+	echo "Servicio activado"
+    else
+	echo "Error desconocido: $?"
+    fi
+    read a
+}
+
+function correrServicio()
+{
+    if systemctl start $sname.service
+    then
+	echo "Servicio iniciado"
+    else
+	echo "Error desconocido: $?"
+    fi
+    read a
+}
+
+function correrServicio()
+{
+    if systemctl stop $sname.service
+    then
+	echo "Servicio parado"
+    else
+	echo "Error desconocido: $?"
+    fi
+    read a
+}
+
+function buscarServicio()
+{
+    echo -n "Qué servicio quiere buscar? (ej: sshd, informix, network, et al) "
+    read sname
+    if ! echo $sname | grep -E "^[a-zA-Z]+$" 2>/dev/null
+    then
+	echo "Nombre inválido"
+	return
+    fi
+    state=$(systemctl status $sname.service | grep "Loaded" -d' ' -f7 | tr -d ';')
+    activ=$(systemctl status $sname.service | grep "Active" -d' ' -f6 | tr -d '()')
+    echo "$sname": $state $activ
+    nombres=("Activar", "Desactivar", "Correr", "Detener", "Ver_Mensajes")
+    direcciones=(activarServicio, desactivarServicio, correrServicio, pararServicio, mensajesServicio)
+    menu "nombres[@]" "direcciones[@]"
+}
+
 function estadoServicios()
 {
     inp=-1
