@@ -31,7 +31,7 @@ function correrServicio()
     read a
 }
 
-function correrServicio()
+function pararServicio()
 {
     if systemctl stop $sname.service
     then
@@ -39,6 +39,12 @@ function correrServicio()
     else
 	echo "Error desconocido: $?"
     fi
+    read a
+}
+
+function mensajesServicio()
+{
+    journalctl -xe --unit=$sname.service
     read a
 }
 
@@ -51,12 +57,12 @@ function buscarServicio()
 	echo "Nombre inválido"
 	return
     fi
-    state=$(systemctl status $sname.service | grep "Loaded" -d' ' -f7 | tr -d ';')
-    activ=$(systemctl status $sname.service | grep "Active" -d' ' -f6 | tr -d '()')
+    state=$(systemctl status $sname.service | grep "Loaded" | cut -d' ' -f7 | tr -d ';')
+    activ=$(systemctl status $sname.service | grep "Active" | cut -d' ' -f6 | tr -d '()')
     echo "$sname": $state $activ
-    nombres=("Activar", "Desactivar", "Correr", "Detener", "Ver_Mensajes")
-    direcciones=(activarServicio, desactivarServicio, correrServicio, pararServicio, mensajesServicio)
-    menu "nombres[@]" "direcciones[@]"
+    nombres_s1=("Activar", "Desactivar", "Correr", "Detener", "Ver_Mensajes")
+    direcciones_s1=(activarServicio desactivarServicio correrServicio pararServicio mensajesServicio)
+    menu "nombres_s1[@]" "direcciones_s1[@]"
 }
 
 function estadoServicios()

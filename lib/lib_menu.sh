@@ -36,9 +36,7 @@ then
 
 			echo "Opcion invalida, por favor ingrese una valida (ingrese cualquier boton para continuar)"
 			read ff
-			clear
 		fi
-		clear
 	done 
 else
 	echo "Excepcion, los dos array tiene que tener el mismo numero de elementos" 
