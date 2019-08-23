@@ -1,3 +1,4 @@
+#version 2 segunda entrega bit
 function configurarRed()
 {
     interfaces_red=$(ip link | grep "<BROADCAST" | cut -d':' -f2 | tr -d ' ')

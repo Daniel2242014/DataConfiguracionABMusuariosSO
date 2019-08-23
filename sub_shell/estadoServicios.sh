@@ -1,3 +1,4 @@
+#version 2 segunda entrega bit
 function desactivarServicio()
 {
     if systemctl disable $sname.service

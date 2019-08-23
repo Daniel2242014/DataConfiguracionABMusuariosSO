@@ -1,3 +1,4 @@
+#version 2 segunda entrega bit
 function usuariosConectados()
 {
     instancias_ssh=$(ps ax -o pid,args | grep "sshd: " | grep -v "grep")

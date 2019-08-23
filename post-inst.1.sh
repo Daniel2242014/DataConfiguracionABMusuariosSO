@@ -1,3 +1,4 @@
+# Version 2.0 4/8 SEGUNDA ENTREGA Bit
 #ANTES DE CORRER ESTE SCRIPT:
 # monte o descomprima informix en /ifx_installer
 

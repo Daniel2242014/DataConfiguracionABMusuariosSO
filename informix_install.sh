@@ -1,3 +1,4 @@
+#Version 2 SEGUNDA ENTREGA Bit
 groupadd informix
 useradd -g informix -s /bin/bash -m informix
 

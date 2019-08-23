@@ -1,3 +1,4 @@
+#version 2 segunda entrega bit
 function todosProcesos()
 {
     ps -o pid,ruser=Usuario,comm=Proceso a

@@ -1,3 +1,4 @@
+#Version 2 segunda entrega bit
 function estadoRedes() {
     ip addr | grep "BROADCAST" | while read network
     do

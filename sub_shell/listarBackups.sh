@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#version 2 segunda entrega bit
 function listarBackups()
 {
     bks=($(ls -t /var/backups/*.tgz | cut -d"/" -f4 | cut -d. -f1))

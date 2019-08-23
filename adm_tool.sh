@@ -1,3 +1,4 @@
+#Version 2.0 SEGUNDA ENTREGA bit
 if test $(git --help 2>/dev/null | wc -l ) -ne 0
 then
     if test $USER = "root" # Debe ser el usuario root quien utilice el shell 

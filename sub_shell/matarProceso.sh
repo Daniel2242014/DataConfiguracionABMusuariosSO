@@ -1,3 +1,4 @@
+#version 2 segunda entrega
 function killProc()
 {
     echo -n "PID del proceso a matar: "

@@ -1,3 +1,4 @@
+#version 2 segunda entrega bit
 function listarWtmp()
 {
     echo -n "Inserte el usuario cuyos loggeos exitosos desea ver (o deje vacío para ver todos): "

@@ -1,3 +1,4 @@
+#version 2 segunda entrega
 function crearLlaveSsh()
 {
     verifUser

@@ -1,3 +1,4 @@
+#version2  segunda entrega bit
 function smRedes()
 {
 	namaes=("Estado" "Configurar")

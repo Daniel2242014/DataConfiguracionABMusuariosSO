@@ -1,4 +1,4 @@
-# VERCION 1.0 - 25/6 PRIMERA ENTREGA desarrolado por Bit (3°BD 2019)
+# VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 
 ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion 
 {	

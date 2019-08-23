@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# VERCION 1.0 - 25/6 PRIMERA ENTREGA desarrolado por Bit (3°BD 2019)
+# VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 
 menu()     #Solisita dos array, el primero con el nombre de la opcion y el segundo con la dirrecion del sub shell a llamar desde el menu 
 {

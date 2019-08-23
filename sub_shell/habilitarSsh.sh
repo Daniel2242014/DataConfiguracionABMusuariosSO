@@ -1,3 +1,4 @@
+#version 2 segunda entrega bit
 function habilitarSsh()
 {
     if ! [ -f "/etc/ssh/allowed" ]

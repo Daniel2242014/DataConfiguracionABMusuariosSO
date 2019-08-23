@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#Version 2 SEGUNDA ENTREGA Bit
 function crearTotal()
 {
     curdir=$(pwd)

@@ -1,4 +1,4 @@
-#P2
+#Version 2.0 Segunda entrega 4/8 Bit
 
 sh informix_postinstall2.sh
 
