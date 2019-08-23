@@ -67,9 +67,9 @@ then
 		    echo "" 
 		    # se carga un array con los nombre de las opciones del menu
 
-		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Redes' 'Estado_Sockets' 'Lista_Procesos' 'Matar_Proceso' 'Configurar_Redes' 'Crear_Llave_Ssh' 'Log_Exitoso' 'Log_Fallido' 'Calendario_Backups' 'Listar_Backups' 'Listar_Usuarios_SSH' 'Habilitar_Usuario_SSH' 'Deshabilitar_Usuario_SSH' 'Estado_Servicios' 'Buscar_Servicio')
+		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Sockets' 'Lista_Procesos' 'Matar_Proceso' 'Crear_Llave_Ssh' 'Log_Exitoso' 'Log_Fallido' 'Calendario_Backups' 'Listar_Backups' 'Listar_Usuarios_SSH' 'Habilitar_Usuario_SSH' 'Deshabilitar_Usuario_SSH' 'Estado_Servicios' 'Buscar_Servicio' 'Redes')
 		    # se carga el nombre de los metodos que llaman dichas opciones
-		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'estadoRedes' 'socketList' 'listaProcesos' 'killProc' 'configurarRed' 'crearLlaveSsh' 'listarWtmp' 'listarBtmp' 'calendarioBackups' 'listarBackups' 'usuariosViaSsh' 'habilitarSsh' 'deshabilitarSsh' 'estadoServicios' 'buscarServicio')
+		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'socketList' 'listaProcesos' 'killProc' 'crearLlaveSsh' 'listarWtmp' 'listarBtmp' 'calendarioBackups' 'listarBackups' 'usuariosViaSsh' 'habilitarSsh' 'deshabilitarSsh' 'estadoServicios' 'buscarServicio' 'smRedes')
 		    menu 'nombres[@]' 'direcionesSetUp[@]' #se llama al metodo menu
 		fi	
 	    fi
@@ -79,4 +79,5 @@ then
     fi
 else
     echo "Dbe tener instalado Git para utilizar este shell "
-fi	
+fi
+

@@ -14,5 +14,5 @@ function estadoRedes() {
 	fi
 	echo " está $stat"
     done
-    read -
+    read ff
 }
