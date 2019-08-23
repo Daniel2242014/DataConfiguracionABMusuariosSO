@@ -29,8 +29,30 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 	unlink /sbin/bkupScript.sh
 	ln -s /var/DataConfiguracionABMusuariosSO/bkupScript.sh /sbin/bkupScript.sh
 	chmod u+x /sbin/bkupScript.sh
-	sed -i '/0 0 * * * root bkupScript.sh/d' /etc/crontab
+	sed -i '/0 0 \* \* \* root bkupScript.sh/d' /etc/crontab
+	sed -i '/0 0 \* \* \* root logrotate.*/d' /etc/crontab
 	echo "0 0 * * * root bkupScript.sh" >> /etc/crontab
+	cat > /etc/logrot.cfg <<EOF
+/var/log/messages {
+	rotate 4
+	weekly
+	postrotate /usr/bin/killall -HUP rsyslogd
+	endscript
+}
+
+/var/log/btmp {
+	rotate 4
+	weekly
+	endscript
+}
+
+/var/log/wtmp {
+	rotate 4
+	weekly
+	endscript
+}
+EOF
+	echo "0 0 * * * root logrotate /etc/logrot.cfg" >> /etc/crontab
 	echo "" > /etc/ssh/allowed
 	#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
 	mv /var/DataConfiguracionABMusuariosSO/Titular.sh /etc/profile.d/Titular.sh #Mueve el titular a profile.d, de esta forma se ejecuta al inicio del sistema

@@ -25,6 +25,7 @@ function listarBackups()
     then
 	for ((i=$[${#deptree[@]}-1]; i>=0; i--)); do
 	    echo ${deptree[$i]}
+	    tar xvf /var/backups/${deptree[$i]}.tgz -C /
 	done
     fi
 }
