@@ -1,4 +1,21 @@
 #version 2 segunda entrega bit
+reinicioExterior()
+{
+ if systemctl disable $1.service
+    then
+	echo "Servicio desactivado"
+    else
+	echo "Error desconocido: $?"
+ fi
+ if systemctl enable $1.service
+    then
+	echo "Servicio activado"
+    else
+	echo "Error desconocido: $?"
+ fi
+    
+}
+
 function desactivarServicio()
 {
     if systemctl disable $sname.service

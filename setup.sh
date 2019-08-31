@@ -26,7 +26,7 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 	#git clone http://gitlab.esi.edu.uy/Bit/ABM.git
 	mkdir DataConfiguracionABMusuariosSO
 	cp -r $ruta/* DataConfiguracionABMusuariosSO/
-	unlink /sbin/bkupScript.sh
+	unlink /sbin/bkupScript.sh 2> /dev/null
 	ln -s /var/DataConfiguracionABMusuariosSO/bkupScript.sh /sbin/bkupScript.sh
 	chmod u+x /sbin/bkupScript.sh
 	sed -i '/0 0 \* \* \* root bkupScript.sh/d' /etc/crontab
@@ -82,7 +82,7 @@ EOF
 	chmod 700 /var/DataConfiguracionABMusuariosSO 	
 	echo "Bienvenido al servidor del sistema SLTA" > /etc/issue #Cargamos issue para el aviso previo al logeo 
 	echo "Ingrese su usuario y contraseña" >> /etc/issue
-	echo "Proseso terminado con exito, ejecute 'source /var/DataConfiguracionABMusuariosSO/adm_tool.sh' desde la consola"
+	echo "Proseso terminado con exito, ejecute 'source setup.sh' desde la consola"
 	verifMenu=-1
     fi
 }

@@ -27,6 +27,5 @@ function habilitarSsh()
 	else
 	    return
 	fi
-	read ff
     fi
 }

@@ -1,4 +1,41 @@
-#Version 2.0 SEGUNDA ENTREGA bit
+#VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
+
+Menussh()
+{
+ namaes=("Cambiar_clave_ssh" "Crear_Llave_Ssh" "Listar_Usuarios_SSH" "Habilitar_Usuario_SSH" "Deshabilitar_Usuario_SSH")
+ fnctns=("cambiarLlave" "crearLlaveSsh" "usuariosViaSsh" "habilitarSsh" "deshabilitarSsh")
+ menu "namaes[@]" "fnctns[@]"
+}
+
+MenuProsesos()
+{
+ namaes=("Lista_Procesos" "Matar_Proceso")
+ fnctns=("listaProcesos" "killProc")
+ menu "namaes[@]" "fnctns[@]"
+}
+
+MenuLog()
+{
+ namaes=("Log_Exitoso" "Log_Fallido")
+ fnctns=('listarWtmp' 'listarBtmp')
+ menu "namaes[@]" "fnctns[@]"
+}
+
+menuBackUp()
+{
+ namaes=('Calendario_Backups' 'Listar_Backups')
+ fnctns=('calendarioBackups' 'listarBackups')
+ menu "namaes[@]" "fnctns[@]"
+}
+
+menuServicios()
+{
+ namaes=('Estado_Servicios' 'Buscar_Servicio')
+ fnctns=('estadoServicios' 'buscarServicio')
+ menu "namaes[@]" "fnctns[@]"
+}
+
+
 if test $(git --help 2>/dev/null | wc -l ) -ne 0
 then
     if test $USER = "root" # Debe ser el usuario root quien utilice el shell 
@@ -68,9 +105,9 @@ then
 		    echo "" 
 		    # se carga un array con los nombre de las opciones del menu
 
-		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'Cambiar_clave_ssh' 'Estado_Sockets' 'Lista_Procesos' 'Matar_Proceso' 'Crear_Llave_Ssh' 'Log_Exitoso' 'Log_Fallido' 'Calendario_Backups' 'Listar_Backups' 'Listar_Usuarios_SSH' 'Habilitar_Usuario_SSH' 'Deshabilitar_Usuario_SSH' 'Estado_Servicios' 'Buscar_Servicio' 'Redes')
+		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'SSH' 'Estado_Sockets' 'Prosesos' 'Logs_login' 'Backups' 'Servicios' 'Redes')
 		    # se carga el nombre de los metodos que llaman dichas opciones
-		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'cambiarLlave' 'socketList' 'listaProcesos' 'killProc' 'crearLlaveSsh' 'listarWtmp' 'listarBtmp' 'calendarioBackups' 'listarBackups' 'usuariosViaSsh' 'habilitarSsh' 'deshabilitarSsh' 'estadoServicios' 'buscarServicio' 'smRedes')
+		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'Menussh' 'socketList' 'MenuProsesos' 'MenuLog' 'menuBackUp' 'menuServicios' 'smRedes')
 		    menu 'nombres[@]' 'direcionesSetUp[@]' #se llama al metodo menu
 		fi	
 	    fi
@@ -79,6 +116,6 @@ then
 	echo "Debe ser root para ejecutar este software"
     fi
 else
-    echo "Dbe tener instalado Git para utilizar este shell "
+    echo "Debe tener instalado Git para utilizar este shell "
 fi
 
