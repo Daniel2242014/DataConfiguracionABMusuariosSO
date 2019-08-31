@@ -27,11 +27,11 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 	mkdir DataConfiguracionABMusuariosSO
 	cp -r $ruta/* DataConfiguracionABMusuariosSO/
 	unlink /sbin/bkupScript.sh 2> /dev/null
-	ln -s /var/DataConfiguracionABMusuariosSO/bkupScript.sh /sbin/bkupScript.sh
+	ln -s /var/DataConfiguracionABMusuariosSO/backup_script.sh /sbin/bkupScript.sh
 	chmod u+x /sbin/bkupScript.sh
 	sed -i '/0 0 \* \* \* root bkupScript.sh/d' /etc/crontab
 	sed -i '/0 0 \* \* \* root logrotate.*/d' /etc/crontab
-	echo "0 0 * * * root bkupScript.sh" >> /etc/crontab
+	echo "0 * * * * root bkupScript.sh" >> /etc/crontab
 	cat > /etc/logrot.cfg <<EOF
 /var/log/messages {
 	rotate 4

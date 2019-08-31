@@ -51,31 +51,3 @@ function crearIncremental()
     echo $bname >> var/backups/latest
     cd $curdir
 }
-
-if [ \( ! -d /var/backups \) -o \( $(ls /var/backups/ | grep snar | wc -l) -eq 0 \) ]
-then
-    mkdir -p /var/backups
-    crearTotal
-else
-    if [ $(date +%u) -eq 7 ]
-    then
-	if [ $[$(date +%V)%2] -eq 1 ]
-	then
-	    crearTotal
-	fi
-    else
-	diaSemana=$(date +%u)
-	if [ $[$(date +%V)%2] -eq 0 ]
-	then
-	    diaSemana=$[$diaSemana + 7]
-	fi
-	diaSemana=$[$diaSemana % 3]
-	if [ $diaSemana -eq 2 ]
-	then
-	    crearDiferencial
-	else
-	    crearIncremental
-	fi
-    fi
-fi
-echo "Backup creado: $bname"
