@@ -6,9 +6,8 @@ systemctl stop firewalld
 systemctl disable firewalld
 systemctl stop NetworkManager
 systemctl disable NetworkManager
-yum remove NetworkManager
-yum remove firewalld
-yum install policycoreutils-python
+yum remove NetworkManager firewalld
+yum install policycoreutils-python git
 
 # TODO: comando para descargar informix;
 # agregar cuando se encuentra una solución a los problemas del servidor
