@@ -1,11 +1,9 @@
 #!/bin/bash
 
-# VERCION 1.0 - 25/6 PRIMERA ENTREGA desarrolado por Bit (3°BD 2019)
+# VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 
 menu()     #Solisita dos array, el primero con el nombre de la opcion y el segundo con la dirrecion del sub shell a llamar desde el menu 
 {
-
-
 if test ${#ary1[@]} -eq ${#ary2[@]} #Debo comrpobar el numero de elementos que tengan ambos array sea los mismos 
 then 
 	verifMenu=0
@@ -38,6 +36,7 @@ then
 			echo "Opcion invalida, por favor ingrese una valida (ingrese cualquier boton para continuar)"
 			read ff
 		fi
+	clear 
 	done 
 else
 	echo "Excepcion, los dos array tiene que tener el mismo numero de elementos" 

@@ -1,3 +1,4 @@
+#Version 2 segunda entrega bit
 function estadoRedes() {
     ip addr | grep "BROADCAST" | while read network
     do
@@ -14,5 +15,5 @@ function estadoRedes() {
 	fi
 	echo " está $stat"
     done
-    read -
+    read ff
 }

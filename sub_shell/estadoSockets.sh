@@ -1,3 +1,4 @@
+#version 2 segunda entrega bit
 function socketList()
 {
     echo -n "Sockets TCP:$tcpcount"

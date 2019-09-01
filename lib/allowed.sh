@@ -11,4 +11,20 @@ function allowedToSshd()
 	    sed -i "/AllowUsers/c\\$au" /etc/ssh/sshd_config
 	fi
 	echo "Debe reiniciar el servicio ssh para que la configuración tome validez"
+	echo "Desea realizarlo ahora [1=si / 0=no]"
+	read r
+	case $r in
+		1)
+			systemctl restart sshd
+			echo "Proseso reiniciado" 
+		;;
+
+		*)
+			echo "No se reiniciara"
+		;;	
+
+	esac
+	echo "Ingrese cualquier tecla para continuar"
+	read fff
 }
+

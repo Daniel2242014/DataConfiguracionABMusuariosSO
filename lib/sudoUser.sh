@@ -1,3 +1,4 @@
+#V2 2da entrega bit
 function sudoUserFunction() # La función llamada via $1 en esta función no puede utilizar funciones del shell ya que se ejecuta en otro shell en el cual sólo se declara la función a ser ejecutada.
 {
     LUser=$1

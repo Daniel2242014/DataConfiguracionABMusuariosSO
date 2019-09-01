@@ -1,4 +1,4 @@
-# VERCION 1.0 - 25/6 PRIMERA ENTREGA desarrolado por Bit (3°BD 2019)
+# VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 
 ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion 
 {	
@@ -26,11 +26,33 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 	#git clone http://gitlab.esi.edu.uy/Bit/ABM.git
 	mkdir DataConfiguracionABMusuariosSO
 	cp -r $ruta/* DataConfiguracionABMusuariosSO/
-	unlink /sbin/bkupScript.sh
-	ln -s /var/DataConfiguracionABMusuariosSO/bkupScript.sh /sbin/bkupScript.sh
+	unlink /sbin/bkupScript.sh 2> /dev/null
+	ln -s /var/DataConfiguracionABMusuariosSO/backup_script.sh /sbin/bkupScript.sh
 	chmod u+x /sbin/bkupScript.sh
-	sed -i '/0 0 * * * root bkupScript.sh/d' /etc/crontab
-	echo "0 0 * * * root bkupScript.sh" >> /etc/crontab
+	sed -i '/0 0 \* \* \* root bkupScript.sh/d' /etc/crontab
+	sed -i '/0 0 \* \* \* root logrotate.*/d' /etc/crontab
+	echo "0 * * * * root bkupScript.sh" >> /etc/crontab
+	cat > /etc/logrot.cfg <<EOF
+/var/log/messages {
+	rotate 4
+	weekly
+	postrotate /usr/bin/killall -HUP rsyslogd
+	endscript
+}
+
+/var/log/btmp {
+	rotate 4
+	weekly
+	endscript
+}
+
+/var/log/wtmp {
+	rotate 4
+	weekly
+	endscript
+}
+EOF
+	echo "0 0 * * * root logrotate /etc/logrot.cfg" >> /etc/crontab
 	echo "" > /etc/ssh/allowed
 	#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
 	mv /var/DataConfiguracionABMusuariosSO/Titular.sh /etc/profile.d/Titular.sh #Mueve el titular a profile.d, de esta forma se ejecuta al inicio del sistema
@@ -60,9 +82,14 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 	chmod 700 /var/DataConfiguracionABMusuariosSO 	
 	echo "Bienvenido al servidor del sistema SLTA" > /etc/issue #Cargamos issue para el aviso previo al logeo 
 	echo "Ingrese su usuario y contraseña" >> /etc/issue
-	echo "Proseso terminado con exito, ejecute 'source /var/DataConfiguracionABMusuariosSO/adm_tool.sh' desde la consola"
+	echo "Proseso terminado con exito, ejecute 'source setup.sh' desde la consola"
 	verifMenu=-1
-    fi
+#	if [ ! -f .postinstalled ];
+#			then
+#			    source post-inst.1.sh
+#			fi
+#			sh informix_postinstall2.sh
+   fi
 }
 
 
@@ -96,6 +123,7 @@ then
 		    read de		
 		    if test $de -eq 1 2> /dev/null #Comprueba que el dato ingresado sea 1
 		    then
+			
 			ConfiguracionDelAmbienteDeTrabajo #se prosesde con la instalacion del sistema 
 		    fi	
 		fi

@@ -1,3 +1,4 @@
+#version 2 segunda entrega bit
 function configurarRed()
 {
     interfaces_red=$(ip link | grep "<BROADCAST" | cut -d':' -f2 | tr -d ' ')
@@ -9,6 +10,10 @@ function configurarRed()
     do
 	echo -n "Qué interfaz desea configurar? [0-${#interfaces_red[@]}): "
 	read iface_idx
+	if [ "$iface_idx" = "" ]
+	then
+	    return
+	fi
 	if ! echo $iface_idx | grep -E "^[0-9]+$"
 	then
 	    iface_idx=-1

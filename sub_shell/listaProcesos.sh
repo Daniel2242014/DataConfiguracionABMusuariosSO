@@ -1,3 +1,4 @@
+#version 2 segunda entrega bit
 function todosProcesos()
 {
     ps -o pid,ruser=Usuario,comm=Proceso a
@@ -24,11 +25,17 @@ function detalleProceso()
     do
 	echo -n "Inserte un número de PID (menor que 0 saldrá de la función): "
 	read input
-	if ! echo input | grep -E "^[0-9]{1,9}$"
+	if test $input -le 0 2> /dev/null
 	then
-	    input=-1
+		echo "Cancelado, toque enter para continuar"		
+		return 
+	fi
+
+	if test $(echo $input | grep -E "^[0-9]{1,9}$"|wc -l) -eq 1 && test $(ps --pid $input|wc -l) -eq 2
+	then
+            ps --pid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real
 	else
-	    ps --pid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real
+            echo "Proseso no encontrado" 
 	fi
     done
 }

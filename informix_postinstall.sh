@@ -37,5 +37,7 @@ cat >>/opt/informix/etc/sqlhosts <<EOF
 bit onipcshm vmInformix bit
 bit onsoctcp vmInformix bit
 EOF
-echo "El sistema se reiniciará, por favor ejecute informix_postinstall2.sh"
+echo "El sistema se reiniciará, por favor ejecute setup.sh nuevamente"
+touch .postinstalled
+read k
 systemctl reboot
