@@ -28,4 +28,5 @@ function listarBackups()
 	    tar xvf /var/backups/${deptree[$i]}.tgz -C /
 	done
     fi
+    read p
 }
