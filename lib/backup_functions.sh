@@ -16,6 +16,13 @@ function crearTotal()
     cd $curdir
 }
 
+function totalManual()
+{
+    crearTotal;
+    echo "Total creado: $bname"
+    read k
+}
+
 function crearDiferencial()
 {
     curdir=$(pwd)
@@ -34,6 +41,13 @@ function crearDiferencial()
     cd $curdir
 }
 
+function diferencialManual()
+{
+    crearDiferencial;
+    echo "Diferencial creado: $bname"
+    read k
+}
+
 function crearIncremental()
 {
     curdir=$(pwd)
@@ -50,4 +64,11 @@ function crearIncremental()
     echo $bname,$last >> var/backups/backups.csv
     echo $bname >> var/backups/latest
     cd $curdir
+}
+
+function incrementalManual()
+{
+    crearIncremental
+    echo "Incremental creado: $bname"
+    read k
 }

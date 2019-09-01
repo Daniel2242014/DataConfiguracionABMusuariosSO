@@ -23,8 +23,8 @@ MenuLog()
 
 menuBackUp()
 {
- namaes=('Calendario_Backups' 'Listar_Backups' 'Enviar_Backups')
- fnctns=('calendarioBackups' 'listarBackups' 'send_backups')
+ namaes=('Calendario_Backups' 'Listar_Backups' 'Enviar_Backups' 'Crear_total' 'Crear_incremental')
+ fnctns=('calendarioBackups' 'listarBackups' 'send_backups' 'totalManual' 'incrementalManual')
  menu "namaes[@]" "fnctns[@]"
 }
 
@@ -65,8 +65,8 @@ then
 		    source /var/DataConfiguracionABMusuariosSO/lib/userE.sh
 		    source /var/DataConfiguracionABMusuariosSO/lib/fechacal.sh
 		    source /var/DataConfiguracionABMusuariosSO/lib/sudoUser.sh
-		    source /var/DataConfiguracionABMusuariosSO/lib/allowed.sh
 		    source /var/DataConfiguracionABMusuariosSO/lib/backup_functions.sh
+		    source /var/DataConfiguracionABMusuariosSO/lib/allowed.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/agregarUsuario.sh 
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/ModificarUsuario.sh 
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/eliminarUsuario.sh
