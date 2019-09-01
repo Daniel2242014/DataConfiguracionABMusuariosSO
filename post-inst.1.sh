@@ -24,4 +24,4 @@ yum install policycoreutils-python git
 #instalación silenciosa: ./ids_install -i silent -f informix.response
 echo "Su sistema se reiniciará tras el script de postinstalación, si necesita terminar de configurar algún otro subsistema haga CTRL+z, termine dicho proceso y vuelva a la instalación con fg"
 read a
-sh informix_postinstall.sh
+#sh informix_postinstall.sh
