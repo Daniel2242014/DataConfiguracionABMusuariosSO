@@ -18,4 +18,5 @@ function calendarioBackups()
 	nFcha=$[(($fcha-1)%$dias_en_mes)+1];
 	echo $nFcha - $nrH: $tipoBack;
     done
+    read k
 }
