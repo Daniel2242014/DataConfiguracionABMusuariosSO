@@ -3,6 +3,12 @@
 function listarBackups()
 {
     bks=($(ls -t /var/backups/*.tgz | cut -d"/" -f4 | cut -d. -f1))
+    if [ "${#bks[@]}" -eq 0 ]
+    then
+	echo "No hay backups"
+	read k
+	return
+    fi
     for i in ${!bks[@]}; do
 	tipo=$(echo ${bks[$i]} | cut -d_ -f1)
 	echo $i: ${tipo^}: ${bks[$i]}
