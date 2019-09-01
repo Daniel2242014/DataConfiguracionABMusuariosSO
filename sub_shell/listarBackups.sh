@@ -15,11 +15,11 @@ function listarBackups()
     done
     echo -n "Desea restaurar algún backup? [0-${#bks[@]}): "
     read ff
-    if [ \( "$ff" = "" \) -o \( "$ff" -lt 0 \) -o \( "$ff" -ge ${#bks[@]} \) ]
+    if [ "$ff" -lt 0 ]
     then
 	return
     fi
-    cnode = ${bks[$ff]}
+    cnode=${bks[$ff]}
     deptree=("$cnode")
     while [ $(grep "$cnode" /var/backups/backups.csv | cut -d, -f2) != "null" ]; do
 	cnode=$(grep "$cnode" /var/backups/backups.csv | cut -d, -f2)

@@ -84,12 +84,12 @@ EOF
 	echo "Ingrese su usuario y contraseña" >> /etc/issue
 	echo "Proseso terminado con exito, ejecute 'source setup.sh' desde la consola"
 	verifMenu=-1
-	if [ ! -f .postinstalled ];
-			then
-			    source post-inst.1.sh
-			fi
-			sh informix_postinstall2.sh
-    fi
+#	if [ ! -f .postinstalled ];
+#			then
+#			    source post-inst.1.sh
+#			fi
+#			sh informix_postinstall2.sh
+   fi
 }
 
 

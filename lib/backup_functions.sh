@@ -4,6 +4,10 @@ function crearTotal()
 {
     curdir=$(pwd)
     cd /
+    if ! [ -d "var/backups" ]
+    then
+        mkdir var/backups
+    fi
     bname=total_$(date +%d-%m-%Y)
     tar cvzf var/backups/$bname.tgz -g var/backups/$bname.snar opt/informix var/log/btmp.* var/log/wtmp.* var/log/messages.* home
     if ! [ -f "var/backups/backups.csv" ]
@@ -27,6 +31,10 @@ function crearDiferencial()
 {
     curdir=$(pwd)
     cd /
+    if ! [ -d "var/backups" ]
+    then
+        mkdir var/backups
+    fi
     last_total=$(cat var/backups/last_total)
     last_date=$(echo $last_total | cut -d_ -f2)
     bname=diferencial_$(date +%d-%m-%Y)
@@ -52,6 +60,10 @@ function crearIncremental()
 {
     curdir=$(pwd)
     cd /
+    if ! [ -d "var/backups" ]
+    then
+        mkdir var/backups
+    fi
     last=$(cat var/backups/latest)
     last_date=$(echo $last | cut -d_ -f2)
     bname=incremental_$(date +%d-%m-%Y)
