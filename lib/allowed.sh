@@ -15,7 +15,7 @@ function allowedToSshd()
 	read r
 	case $r in
 		1)
-			reinicioExterior "sshd"
+			systemctl restart sshd
 			echo "Proseso reiniciado" 
 		;;
 
