@@ -2,6 +2,9 @@
 #ANTES DE CORRER ESTE SCRIPT:
 # monte o descomprima informix en /ifx_installer
 
+source sub_shell/configurarRed.sh
+configurarRed
+
 systemctl stop firewalld
 systemctl disable firewalld
 systemctl stop NetworkManager
