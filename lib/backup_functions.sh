@@ -65,9 +65,13 @@ function crearIncremental()
         mkdir var/backups
     fi
     last=$(cat var/backups/latest)
-    last_date=$(echo $last | cut -d_ -f2)
+    echo Based on $last
     bname=incremental_$(date +%d-%m-%Y)
+    echo 'Copying last.snar ($last.snar) to $bname.snar'
     cp var/backups/$last.snar var/backups/$bname.snar
+    stat var/backups/$last.snar
+    stat var/backups/$bname.snar
+    read k
     tar cvzf var/backups/$bname.tgz -g var/backups/$bname.snar opt/informix var/log/btmp.* var/log/wtmp.* var/log/messages.*
     if ! [ -f "var/backups/backups.csv" ]
     then

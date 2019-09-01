@@ -13,15 +13,15 @@ function listarBackups()
 	tipo=$(echo ${bks[$i]} | cut -d_ -f1)
 	echo $i: ${tipo^}: ${bks[$i]}
     done
-    echo -n "Desea restaurar algún backup? [0-${#bks[@]}): "
+    echo -n "Desea restaurar algún backup? [0-${#bks[@]}), -1 para salir: "
     read ff
-    if [ "$ff" -lt 0 ]
+    if test "$(echo $ff | grep -E "^[0-9]{1,}$" | wc -l)" -ne 1
     then
 	return
     fi
     cnode=${bks[$ff]}
     deptree=("$cnode")
-    while [ $(grep "$cnode" /var/backups/backups.csv | cut -d, -f2) != "null" ]; do
+    while [ "$(grep \"$cnode\" /var/backups/backups.csv | cut -d, -f2)" != "null" ]; do
 	cnode=$(grep "$cnode" /var/backups/backups.csv | cut -d, -f2)
 	deptree[@]="$cnode"
     done
@@ -34,5 +34,6 @@ function listarBackups()
 	    tar xvf /var/backups/${deptree[$i]}.tgz -C /
 	done
     fi
+    echo "Listo!"
     read p
 }
