@@ -95,6 +95,8 @@ function configurarRed()
 	then
 	    printf "NAME=%s\nDEVICE=%s\nPEERDNS=yes\nDNS1=%s\n%s\n%s\nIPADDR=%s" \
 		$dev $dev $dnsip "$smask" "$gway" "$ip" > /etc/sysconfig/network-scripts/ifcfg-$dev
+	    ifdown $dev
+	    ifup $dev
 	fi
     fi
 }

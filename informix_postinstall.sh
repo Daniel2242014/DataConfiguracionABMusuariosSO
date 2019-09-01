@@ -3,7 +3,6 @@ export INFORMIXDIR=/opt/informix
 export ONCONFIG=onconfig.bit
 export INFORMIXSERVER=bit
 export INFORMIXSQLHOSTS='$INFORMIXDIR/etc/sqlhosts'
-export PATH='$INFORMIXDIR/bin:$PATH'
 export DBDATE=DMY4/
 export TERM=vt100
 export TERMCAP='$INFORMIXDIR/etc/termcap'

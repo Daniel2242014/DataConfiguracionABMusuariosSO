@@ -31,6 +31,17 @@ function correrServicio()
     read a
 }
 
+function reiniciarServicio()
+{
+    if systemctl restart $sname.service
+    then
+	echo "Servicio reiniciado"
+    else
+	echo "Error desconocido: $?"
+    fi
+    read a
+}
+
 function pararServicio()
 {
     if systemctl stop $sname.service
@@ -60,8 +71,8 @@ function buscarServicio()
     state=$(systemctl status $sname.service | grep "Loaded" | cut -d' ' -f7 | tr -d ';')
     activ=$(systemctl status $sname.service | grep "Active" | cut -d' ' -f6 | tr -d '()')
     echo "$sname": $state $activ
-    nombres_s1=("Activar", "Desactivar", "Correr", "Detener", "Ver_Mensajes")
-    direcciones_s1=(activarServicio desactivarServicio correrServicio pararServicio mensajesServicio)
+    nombres_s1=("Activar", "Desactivar", "Correr", "Detener", "Ver_Mensajes" "Reiniciar")
+    direcciones_s1=(activarServicio desactivarServicio correrServicio pararServicio mensajesServicio reiniciarServicio)
     menu "nombres_s1[@]" "direcciones_s1[@]"
 }
 
