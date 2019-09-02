@@ -81,7 +81,7 @@ function buscarServicio()
 {
     echo -n "Qué servicio quiere buscar? (ej: sshd, informix, network, et al) "
     read sname
-    if ! echo $sname | grep -E "^[a-zA-Z]+$" 2>/dev/null
+    if ! echo $sname | grep -E "^[a-zA-Z]{1,}$" 2>/dev/null
     then
 	echo "Nombre inválido"
 	return
