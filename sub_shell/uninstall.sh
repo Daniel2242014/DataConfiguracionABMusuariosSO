@@ -50,6 +50,7 @@ desinstalar()
 			sed -i '/192.168.1.100 vmInformix/d' /etc/hosts
 
 			rm -rf /etc/profile.d/zz_configInformix.sh
+			echo "Cargando...."
 			/opt/IBM/Informix_Software_Bundle/uninstall/uninstall_server/uninstallserver -i console
 			echo "Esperando a que termine eliminacion en segundo plano"
 			sleep 3
