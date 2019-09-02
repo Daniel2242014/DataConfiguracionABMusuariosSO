@@ -68,6 +68,7 @@ chmod 770 /opt/IBM
 chown informix:informix /opt/IBM
 clear
 echo "Como uno de los ultimos pasos, se debe reiniciar el pc, aunque para finalizar la instalacion por favor ejecute source setup.sh" 
+echo "Toque cualquier boton para continuar"
 read fff
 echo "Reiniciando en 3"
 sleep 1

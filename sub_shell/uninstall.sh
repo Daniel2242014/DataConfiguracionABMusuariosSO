@@ -37,13 +37,9 @@ desinstalar()
 		sed -i '/0 * * * * root bkupScript.sh/d' /etc/crontab
 		sed -i '/0 0 * * * root logrotate /etc/logrot.cfg/d' /etc/crontab
 		
-		if test -z $1
-		then 
-			echo "Proseso terminado con exito"	
-			read f
-			verifMenu=-1
-		fi	
-
+		
+		if test -f /opt/IBM
+		then
 		#ELIMINACION de informix 
 		echo "Usted desea eliminar Informix [1=si 0=no]"
 		read d 
@@ -66,6 +62,13 @@ desinstalar()
 		*)
 		echo "No se eliminara"
 		;;
+		
 		esac
-
+	fi
+	if test -z $1
+		then 
+			echo "Proseso terminado con exito"	
+			read f
+			verifMenu=-1
+		fi	
 }

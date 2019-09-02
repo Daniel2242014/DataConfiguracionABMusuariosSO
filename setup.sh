@@ -121,7 +121,7 @@ then
 		then
 			if test -f /var/DataConfiguracionABMusuariosSO/I_Inxo
 			then
-              source /var/DataConfiguracionABMusuariosSO/informix_install2.sh 
+              source /var/DataConfiguracionABMusuariosSO/Informix_install2.sh 
 			fi 
 		    source /var/DataConfiguracionABMusuariosSO/adm_tool.sh
 		else
