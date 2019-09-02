@@ -8,8 +8,9 @@ User=informix
 Group=informix
 EnvironmentFile=/etc/sysconfig/informix
 RemainAfterExit=yes
-ExecStart=/opt/informix/bin/oninit -vy
-ExecStop=/opt/informix/bin/onmode -vky
+ExecStart=/opt/IBM/Informix_Software_Bundle/bin/oninit -vy
+ExecStop=/opt/IBM/Informix_Software_Bundle/bin/onmode -vky
 
 [Install]
 WantedBy=multi-user.target
+
