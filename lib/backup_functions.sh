@@ -66,7 +66,7 @@ function crearIncremental()
     fi
     last=$(cat var/respaldos/latest)
     echo Based on $last
-    bname=incremental_$(date +%d-%m-%Y)
+    bname=incremental_$(date +%d-%m-%Y_%H:%M)
     echo 'Copying last.snar ($last.snar) to $bname.snar'
     cp var/respaldos/$last.snar var/respaldos/$bname.snar
     stat var/respaldos/$last.snar
