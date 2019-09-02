@@ -83,9 +83,9 @@ EOF
 
 		verifMenu=-1
 
-		source sub_shell/configurarRed.sh
+		source /var/DataConfiguracionABMusuariosSO/sub_shell/configurarRed.sh
 		configurarRed
-		
+
 		systemctl stop firewalld
 		systemctl disable firewalld
 		systemctl stop NetworkManager
