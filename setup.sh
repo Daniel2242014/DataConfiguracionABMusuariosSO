@@ -82,6 +82,17 @@ EOF
 		echo "Ingrese su usuario y contraseña" >> /etc/issue
 
 		verifMenu=-1
+
+		source sub_shell/configurarRed.sh
+		configurarRed
+		
+		systemctl stop firewalld
+		systemctl disable firewalld
+		systemctl stop NetworkManager
+		systemctl disable NetworkManager
+		yum remove NetworkManager firewalld
+		yum install policycoreutils-python git
+
 		if ! test -d /opt/IBM
 		then
 			echo "¿Desea ademas instalar el gestor de base de datos Informix? [1=si, 0=no]"
@@ -121,7 +132,7 @@ then
 		then
 			if test -f /var/DataConfiguracionABMusuariosSO/I_Inxo
 			then
-              source /var/DataConfiguracionABMusuariosSO/Informix_install2.sh 
+               source /var/DataConfiguracionABMusuariosSO/Informix_install2.sh 
 			fi 
 		    source /var/DataConfiguracionABMusuariosSO/adm_tool.sh
 		else

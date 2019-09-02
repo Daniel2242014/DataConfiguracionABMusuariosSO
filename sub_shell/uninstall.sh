@@ -33,7 +33,7 @@ desinstalar()
 		fi
 		echo "\S" > /etc/issue
 		echo "Kernel \r on an \m" >> /etc/issue	#Cargamos el contenido por defecto 
-
+		if test -z $1
 		sed -i '/0 * * * * root bkupScript.sh/d' /etc/crontab
 		sed -i '/0 0 * * * root logrotate /etc/logrot.cfg/d' /etc/crontab
 		
@@ -67,9 +67,10 @@ desinstalar()
 		esac
 	fi
 	if test -z $1
-		then 
-			echo "Proseso terminado con exito"	
-			read f
-			verifMenu=-1
-		fi	
+	then 
+		echo "Proseso terminado con exito"	
+		read f
+		verifMenu=-1
+	fi
+
 }
