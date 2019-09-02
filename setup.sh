@@ -23,9 +23,7 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
     then
 		ruta=$(pwd) #guardamos en la variable ruta la direcion actual donde se ejecuto el setup de instalacion 
 		cd $carpeta #Nos movemos a /var
-		#git clone http://gitlab.esi.edu.uy/Bit/ABM.git
-		mkdir DataConfiguracionABMusuariosSO
-		cp -r $ruta/* DataConfiguracionABMusuariosSO/
+		git clone https://github.com/Daniel2242014/DataConfiguracionABMusuariosSO
 		unlink /sbin/bkupScript.sh 2> /dev/null
 		ln -s /var/DataConfiguracionABMusuariosSO/backup_script.sh /sbin/bkupScript.sh
 		chmod u+x /sbin/bkupScript.sh

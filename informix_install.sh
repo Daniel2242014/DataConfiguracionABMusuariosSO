@@ -24,7 +24,7 @@ cd ..
 rm -rf Informix
 echo "Realizando configuraciones"
 touch /etc/profile.d/zz_configInformix.sh
-cat >> /etc/profile.d/zz_configInformix<<EOF
+cat >> /etc/profile.d/zz_configInformix.sh<<EOF
 export INFORMIXDIR='/opt/IBM/Informix_Software_Bundle'
 export ONCONFIG=onconfig.bit
 export INFORMIXSERVER=bit
