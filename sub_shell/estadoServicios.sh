@@ -116,7 +116,7 @@ function estadoServicios()
 {
     inp=-1
     while [ $inp -lt 0 ]; do
-	serviciosActivados=($(c))
+	serviciosActivados=($(systemctl list-unit-files --state=enabled | tail -n +2 | head -n -2 | cut -d' ' -f1 | grep -vE "target|@"))
 	for ((i=0;i<${#serviciosActivados[@]};++i)); do
 	    echo $i")" ${serviciosActivados[$i]}
 	    state=($(systemctl status ${serviciosActivados[$i]} | grep Active:))
