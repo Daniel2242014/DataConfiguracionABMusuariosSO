@@ -91,13 +91,13 @@ function buscarServicio()
 	serviciosActivados=($(systemctl list-unit-files --state=enabled | tail -n +2 | head -n -2 | cut -d' ' -f1 | grep -vE "target|@"))
 	for ine in $(seq 0 1 $[${#serviciosActivados[@]}-1])
 	do
-		if test $(echo ${serviciosActivados[$ine]}|grep -x "$sname"|wc -l) -eq 1
+		if test $(echo ${serviciosActivados[$ine]}|grep -x "$sname.service"|wc -l) -eq 1
 		then
 			j=0
 		fi
 	done 
 
-	if $j -eq 1
+	if test $j -eq 1
 	then
 		echo "El servicio no existe"
 		read fff
@@ -116,7 +116,7 @@ function estadoServicios()
 {
     inp=-1
     while [ $inp -lt 0 ]; do
-	serviciosActivados=($(systemctl list-unit-files --state=enabled | tail -n +2 | head -n -2 | cut -d' ' -f1 | grep -vE "target|@"))
+	serviciosActivados=($(c))
 	for ((i=0;i<${#serviciosActivados[@]};++i)); do
 	    echo $i")" ${serviciosActivados[$i]}
 	    state=($(systemctl status ${serviciosActivados[$i]} | grep Active:))
