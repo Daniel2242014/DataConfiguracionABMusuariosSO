@@ -1,3 +1,4 @@
+# informix.service environmental variables
 INFORMIXDIR=/opt/IBM/Informix_Software_Bundle
 INFORMIXSERVER=bit
 ONCONFIG=onconfig.bit

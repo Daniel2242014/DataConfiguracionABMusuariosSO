@@ -1,16 +1,18 @@
 [Unit]
-Description=Informix service
-After=network.target
+Description=Informix IDS Database Server
+Documentation=file:/opt/IBM/Informix_Software_Bundle/release/en_us/0333 http://www.ibm.com/software/data/informix/library.html
+Wants=network-online.target
+After=network.target network-online.target
 
 [Service]
 Type=oneshot
 User=informix
 Group=informix
-EnvironmentFile=/etc/sysconfig/informix
 RemainAfterExit=yes
-ExecStart=/opt/IBM/Informix_Software_Bundle/bin/oninit -vy
-ExecStop=/opt/IBM/Informix_Software_Bundle/bin/onmode -vky
+EnvironmentFile=/etc/sysconfig/sysconfig.informix
+ExecStart=/opt/IBM/Informix_Software_Bundle/bin/oninit
+ExecStop=/opt/IBM/Informix_Software_Bundle/bin/onmode -ky
+#Restart=on-abort
 
 [Install]
 WantedBy=multi-user.target
-
