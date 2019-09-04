@@ -37,8 +37,7 @@ function listarBackups()
     read ff
     if [ "$ff" = "y" ];
     then
-    for i in $(seq $[${#deptree[@]}-1] -1 0); do
-	#for ((i=$[${#deptree[@]}-1]; i>=0; i--)); do
+	for ((i=$[${#deptree[@]}-1]; i>=0; i--)); do
 	    echo ${deptree[$i]}
         #se extraen en orden inverso, es decir, el backup indicado ultimo
 	    tar xvf /var/respaldos/${deptree[$i]}.tgz -C /

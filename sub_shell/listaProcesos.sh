@@ -79,17 +79,18 @@ function listaProcesos()
     read input
     if [ $(echo "$input" | grep -E "^[1-3]{1}$" | wc -l) -eq 0 ]
     then
-	read k
+		echo "Opcion incorrecta"
+		read k
 	return
     fi
-    read k
     if [ "$input" -eq 1 ]
     then
-	todosProcesos
+		todosProcesos
     elif [ "$input" -eq 2 ]
     then
-	procesosUsuario
+		procesosUsuario
     else
 	detalleProceso
     fi
+	read fff
 }
