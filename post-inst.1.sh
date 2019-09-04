@@ -1,6 +1,10 @@
-# Version 2.0 4/8 SEGUNDA ENTREGA Bit
+#!/bin/bash
+#VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 #ANTES DE CORRER ESTE SCRIPT:
 # monte o descomprima informix en /ifx_installer
+
+# NO ES USO POR EL MOMENTO 
+
 
 source sub_shell/configurarRed.sh
 configurarRed

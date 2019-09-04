@@ -1,4 +1,5 @@
-#version 2 segunda entrega bit
+#!/bin/bash
+#VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 function listarWtmp()
 {
     echo -n "Inserte el usuario cuyos loggeos exitosos desea ver (o deje vacío para ver todos): "

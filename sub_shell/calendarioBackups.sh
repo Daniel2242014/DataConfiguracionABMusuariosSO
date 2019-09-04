@@ -1,4 +1,5 @@
-#version 2 segunda entrega bit
+#!/bin/bash
+#VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 function calendarioBackups()
 {
     hora=$(date +%H) # hora actual; se mostrarán los backups de las proximas 24 hs

@@ -1,5 +1,5 @@
 #!/bin/bash
-#version 2 segunda entrega bit
+#VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 function listarBackups()
 {
     bks=($(ls -t /var/respaldos/*.tgz | cut -d"/" -f4 | cut -d. -f1))

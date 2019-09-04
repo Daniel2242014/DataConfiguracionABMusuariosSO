@@ -1,4 +1,5 @@
-#version 2 segunda entrega bit
+#!/bin/bash
+#VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 function usuariosConectados()
 {
 	# se crea una instancia de sshd por cada usuario, por ende cada instancia de sshd es una conexión de usuario
