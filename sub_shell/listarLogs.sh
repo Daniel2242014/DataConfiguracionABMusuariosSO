@@ -6,7 +6,7 @@ function listarWtmp()
     verifUser
     usr=$respuesta
     echo "Para salir de la sigiente lista ingrese 'q'. Para continuar ingrese cualquier tecla"
-    echo fff
+    read fff
     for i in $(ls /var/log/wtmp*); do
 	    last -f $i $usr | head -n -2 | less #Lista los logs corespondientes 
     done
@@ -18,7 +18,7 @@ function listarBtmp()
     verifUser
     usr=$respuesta
     echo "Para salir de la sigiente lista ingrese 'q'. Para continuar ingrese cualquier tecla"
-    echo fff
+    read fff
     for i in $(ls /var/log/btmp*); do
 	    lastb -f $i $usr | head -n -2 | less less #Lista los logs corespondientes 
     done
