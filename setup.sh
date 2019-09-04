@@ -80,10 +80,7 @@ EOF
 		chmod 700 /var/DataConfiguracionABMusuariosSO 	
 		echo "Bienvenido al servidor del sistema SLTA" > /etc/issue #Cargamos issue para el aviso previo al logeo 
 		echo "Ingrese su usuario y contraseña" >> /etc/issue
-<<<<<<< HEAD
 
-		verifMenu=-1
-=======
 
 		verifMenu=-1
 
@@ -96,8 +93,6 @@ EOF
 		systemctl disable NetworkManager
 		yum remove NetworkManager firewalld
 		yum install policycoreutils-python git
-
->>>>>>> 2e625d6c86bb7e581d007135e2a1164d5c636b1a
 		if ! test -d /opt/IBM
 		then
 			echo "¿Desea ademas instalar el gestor de base de datos Informix? [1=si, 0=no]"
@@ -137,11 +132,7 @@ then
 		then
 			if test -f /var/DataConfiguracionABMusuariosSO/I_Inxo
 			then
-<<<<<<< HEAD
               source informix_install2.sh 
-=======
-               source /var/DataConfiguracionABMusuariosSO/Informix_install2.sh 
->>>>>>> 2e625d6c86bb7e581d007135e2a1164d5c636b1a
 			fi 
 		    source /var/DataConfiguracionABMusuariosSO/adm_tool.sh
 		else
