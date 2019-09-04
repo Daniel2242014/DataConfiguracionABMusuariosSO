@@ -6,5 +6,6 @@ function send_backups()
     sleep 1
     echo "1..."
     sleep 1
+    #se envian los respaldos al servidor respaldo rsync
     rsync -av /var/respaldos rsync://192.168.1.101/var/respaldos_servidor
 }

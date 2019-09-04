@@ -10,7 +10,9 @@ function deshabilitarSsh()
     then
 	pattern="/$usr/d"
 	echo $pattern
+    #eliminar la linea con el nombre del usuario
 	sed -i $pattern /etc/ssh/allowed
+    #actualizar la cfg de ssh
 	allowedToSshd
     fi
 }

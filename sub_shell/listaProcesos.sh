@@ -1,8 +1,4 @@
 #version 2 segunda entrega bit
-<<<<<<< HEAD
-=======
-
->>>>>>> 2e625d6c86bb7e581d007135e2a1164d5c636b1a
 function todosProcesos()
 {
     ps -o pid,ruser=Usuario,comm=Proceso a
@@ -43,7 +39,7 @@ function detalleProceso()
 	fi
 	if test $(echo "$input" | grep -E "^[0-9]{1,9}$"|wc -l) -eq 1 && test $(ps --pid $input|wc -l) -eq 2
 	then
-            pCount=$(ps --pid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real | wc -l)
+        pCount=$(ps --pid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real | wc -l)
 	    if [ $pCount -eq 0 ]
 	    then
 		echo "No hay procesos con PID=$input..."
@@ -57,11 +53,13 @@ function detalleProceso()
 		then
 		    if [ $k -eq 1 ]
 		    then
+			#padre: proceso p / p.pid=input.ppid
 			ps --pid $_ppid -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real
 			echo "Enter para continuar..."
 			read k
 		    elif [ $k -eq 2 ]
 		    then
+			#hijos: proceso p / input.pid=p.ppid
 			ps --ppid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real
 			echo "Enter para continuar..."
 			read k
