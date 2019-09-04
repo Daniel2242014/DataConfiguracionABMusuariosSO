@@ -23,9 +23,7 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
     then
 		ruta=$(pwd) #guardamos en la variable ruta la direcion actual donde se ejecuto el setup de instalacion 
 		cd $carpeta #Nos movemos a /var
-		#git clone http://gitlab.esi.edu.uy/Bit/ABM.git
-		mkdir DataConfiguracionABMusuariosSO
-		cp -r $ruta/* DataConfiguracionABMusuariosSO/
+		git clone https://github.com/Daniel2242014/DataConfiguracionABMusuariosSO
 		unlink /sbin/bkupScript.sh 2> /dev/null
 		ln -s /var/DataConfiguracionABMusuariosSO/backup_script.sh /sbin/bkupScript.sh
 		chmod u+x /sbin/bkupScript.sh
@@ -82,8 +80,24 @@ EOF
 		chmod 700 /var/DataConfiguracionABMusuariosSO 	
 		echo "Bienvenido al servidor del sistema SLTA" > /etc/issue #Cargamos issue para el aviso previo al logeo 
 		echo "Ingrese su usuario y contraseña" >> /etc/issue
+<<<<<<< HEAD
 
 		verifMenu=-1
+=======
+
+		verifMenu=-1
+
+		source /var/DataConfiguracionABMusuariosSO/sub_shell/configurarRed.sh
+		configurarRed
+
+		systemctl stop firewalld
+		systemctl disable firewalld
+		systemctl stop NetworkManager
+		systemctl disable NetworkManager
+		yum remove NetworkManager firewalld
+		yum install policycoreutils-python git
+
+>>>>>>> 2e625d6c86bb7e581d007135e2a1164d5c636b1a
 		if ! test -d /opt/IBM
 		then
 			echo "¿Desea ademas instalar el gestor de base de datos Informix? [1=si, 0=no]"
@@ -123,7 +137,11 @@ then
 		then
 			if test -f /var/DataConfiguracionABMusuariosSO/I_Inxo
 			then
+<<<<<<< HEAD
               source informix_install2.sh 
+=======
+               source /var/DataConfiguracionABMusuariosSO/Informix_install2.sh 
+>>>>>>> 2e625d6c86bb7e581d007135e2a1164d5c636b1a
 			fi 
 		    source /var/DataConfiguracionABMusuariosSO/adm_tool.sh
 		else

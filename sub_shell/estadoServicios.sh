@@ -83,9 +83,27 @@ function buscarServicio()
     read sname
     if ! echo $sname | grep -E "^[a-zA-Z]+$" 2>/dev/null
     then
-	echo "Nombre inválido"
-	return
+		echo "Nombre inválido"
+		read r
+		return
     fi
+    j=1
+	serviciosActivados=($(systemctl list-unit-files --state=enabled | tail -n +2 | head -n -2 | cut -d' ' -f1 | grep -vE "target|@"))
+	for ine in $(seq 0 1 $[${#serviciosActivados[@]}-1])
+	do
+		if test $(echo ${serviciosActivados[$ine]}|grep -x "$sname.service"|wc -l) -eq 1
+		then
+			j=0
+		fi
+	done 
+
+	if test $j -eq 1
+	then
+		echo "El servicio no existe"
+		read fff
+		return
+	fi
+
     state=$(systemctl status $sname.service | grep "Loaded" | cut -d' ' -f7 | tr -d ';')
     activ=$(systemctl status $sname.service | grep "Active" | cut -d' ' -f6 | tr -d '()')
     echo "$sname": $state $activ
@@ -105,6 +123,11 @@ function estadoServicios()
 	    #		echo $data;
 	    echo -n "Estado: ";
 	    echo ${state[1]} # | grep 'Active:' | cut -d' ' -f5
+	    if [ $[$i % 5] -eq 0 ]
+	    then
+		echo "Enter para continuar..."
+		read k
+	    fi
 	done
         echo -n "Desea ver los mensajes de algún servicio? [0;${#serviciosActivados[@]}): "
 	read inp

@@ -1,4 +1,8 @@
 #version 2 segunda entrega bit
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2e625d6c86bb7e581d007135e2a1164d5c636b1a
 function todosProcesos()
 {
     ps -o pid,ruser=Usuario,comm=Proceso a
@@ -12,8 +16,15 @@ function procesosUsuario()
 	verifUser
 	if [ "$respuesta" != "" ]
 	then
-	    ps -U "$respuesta" -o pid,comm=Proceso
-	    read ff
+	    pCount=$(ps -U "$respuesta" -o pid,comm=Proceso | wc -l)
+	    if [ $pCount -eq 1 ]
+	    then
+		echo "No hay procesos abiertos por el usuario $respuesta"
+	    else
+		ps -U "$respuesta" -o pid,comm=Proceso
+		echo "Enter para continuar..."
+		read ff
+	    fi
 	fi
     done
 }
@@ -30,10 +41,33 @@ function detalleProceso()
 		echo "Cancelado, toque enter para continuar"		
 		return 
 	fi
-
-	if test $(echo $input | grep -E "^[0-9]{1,9}$"|wc -l) -eq 1 && test $(ps --pid $input|wc -l) -eq 2
+	if test $(echo "$input" | grep -E "^[0-9]{1,9}$"|wc -l) -eq 1 && test $(ps --pid $input|wc -l) -eq 2
 	then
-            ps --pid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real
+            pCount=$(ps --pid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real | wc -l)
+	    if [ $pCount -eq 0 ]
+	    then
+		echo "No hay procesos con PID=$input..."
+		read k
+	    else
+		_ppid=$(ps --pid $input -o ppid | tail -1)
+		ps --pid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real
+		echo "1 para ver padre, 2 para ver hijos, 3 para salir"
+		read k
+		if [ "$(echo $k | grep -E "^[1-3]{1}$" | wc -l)" -eq 1 ]
+		then
+		    if [ $k -eq 1 ]
+		    then
+			ps --pid $_ppid -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real
+			echo "Enter para continuar..."
+			read k
+		    elif [ $k -eq 2 ]
+		    then
+			ps --ppid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real
+			echo "Enter para continuar..."
+			read k
+		    fi
+		fi
+	    fi
 	else
             echo "Proseso no encontrado" 
 	fi
@@ -44,14 +78,19 @@ function listaProcesos()
 {
     echo -n "Desea ver procesos de todo el sistema (1), de un usuario (2), o detalles de un proceso (3)? "
     read input
-    if [ $input -eq 1 ]
+    if [ $(echo "$input" | grep -E "^[1-3]{1}$" | wc -l) -eq 0 ]
+    then
+	read k
+	return
+    fi
+    read k
+    if [ "$input" -eq 1 ]
     then
 	todosProcesos
-    elif [ $input -eq 2 ]
+    elif [ "$input" -eq 2 ]
     then
 	procesosUsuario
     else
 	detalleProceso
     fi
-    read ff
 }
