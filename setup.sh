@@ -30,7 +30,7 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 		chmod u+x /sbin/bkupScript.sh
 		sed -i '/0 0 \* \* \* root bkupScript.sh/d' /etc/crontab
 		sed -i '/0 0 \* \* \* root logrotate.*/d' /etc/crontab
-		echo "0 * * * * root bkupScript.sh" >> /etc/crontab
+		#echo "0 * * * * root bkupScript.sh" >> /etc/crontab
 		cat > /etc/logrot.cfg <<EOF
 /var/log/messages {
 	rotate 4
@@ -51,7 +51,7 @@ ConfiguracionDelAmbienteDeTrabajo() #Funcion encarga de la instalacion
 	endscript
 }
 EOF
-		echo "0 0 * * * root logrotate /etc/logrot.cfg" >> /etc/crontab
+		#echo "0 0 * * * root logrotate /etc/logrot.cfg" >> /etc/crontab
 		echo "" > /etc/ssh/allowed
 		#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
 		mv /var/DataConfiguracionABMusuariosSO/Titular.sh /etc/profile.d/Titular.sh #Mueve el titular a profile.d, de esta forma se ejecuta al inicio del sistema
@@ -133,7 +133,7 @@ then
 		then
 			if test -f /var/DataConfiguracionABMusuariosSO/I_Inxo
 			then
-              source informix_install2.sh 
+              source Informix_install2.sh 
 			fi 
 		    source /var/DataConfiguracionABMusuariosSO/adm_tool.sh
 		else
