@@ -2,7 +2,7 @@
 #VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 function crearTotal()
 {
-    source /var/DataConfiguracionABMusuariosSO/lib/FuncionesBBDD
+    source /var/DataConfiguracionABMusuariosSO/lib/FuncionesBBDD.sh
     if ! [ -d "var/respaldos" ] #Si la carpeta de los respaldos no existe la creamos 
     then
        mkdir /var/respaldos
@@ -14,16 +14,16 @@ function crearTotal()
     mkdir /var/respaldos/T$NumeroMaster #Creamos la carpeta de este total
 
     #Creamos la carpeta BBDD con todos los archivos de la BBDD
-    if [-d /opt/IBM]
+    if test -d /opt/IBM/Informix_Software_Bundle/
     then
         persistirBBDD "/var/respaldos/T$NumeroMaster/informix"
-        tar cvzf var/respaldos/T$NumeroMaster.tgz -g var/respaldos/T$NumeroMaster.snar /var/respaldos/T$NumeroMaster/informix var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
-        rm -rf "/var/respaldos/T$NumeroMaster/informix"
+        tar cvzf var/respaldos/T$NumeroMaster/T$NumeroMaster.tgz -g var/respaldos/T$NumeroMaster.snar /var/respaldos/T$NumeroMaster/informix var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
+        #rm -rf "/var/respaldos/T$NumeroMaster/informix"
     else
-        tar cvzf var/respaldos/T$NumeroMaster.tgz -g var/respaldos/T$NumeroMaster.snar var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
+        tar cvzf var/respaldos/T$NumeroMaster/T$NumeroMaster.tgz -g var/respaldos/T$NumeroMaster.snar var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
     fi
     sed -i 's/^\(.\+\):ACTUAL:\(.\+\)$/\1:ANTERIOR:\2/' /var/respaldos/master
-    echo "T$NumeroMaster:T:$(date):ACTUAL:"
+    echo "T$NumeroMaster:T:$(date):ACTUAL:" >> /var/respaldos/master
 }
 
 function totalManual()
