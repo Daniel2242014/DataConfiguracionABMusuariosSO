@@ -17,10 +17,10 @@ function crearTotal()
     if test -d /opt/IBM/Informix_Software_Bundle/
     then
         persistirBBDD "/var/respaldos/T$nm/informix"
-        tar cvzf var/respaldos/T$nm/T$nm.tgz -g var/respaldos/T$nm.snar /var/respaldos/T$nm/informix var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
+        tar -cvzf var/respaldos/T$nm/T$nm.tgz -g var/respaldos/T$nm.snar /var/respaldos/T$nm/informix var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
         #rm -rf "/var/respaldos/T$NumeroMaster/informix"
     else
-        tar cvzf var/respaldos/T$nm/T$nm.tgz -g var/respaldos/T$nm.snar var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
+        tar -cvzf var/respaldos/T$nm/T$nm.tgz -g var/respaldos/T$nm.snar var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
     fi
     sed -i 's/^\(.\+\):ACTUAL:\(.\+\)$/\1:ANTERIOR:\2/' /var/respaldos/master
     echo "T$nm:T:$(date):ACTUAL:" >> /var/respaldos/master
