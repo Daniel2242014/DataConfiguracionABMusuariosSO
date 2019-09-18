@@ -10,20 +10,20 @@ function crearTotal()
        mkdir /var/respaldos/BBDD #Carpeta con los archivos a respladar
     fi
 
-    NumeroMaster=echo $[$(grep "^T*" /var/respaldos/master| wc -l)+1] #Nos devuleve el numero del respaldo total 
-    mkdir /var/respaldos/T$NumeroMaster #Creamos la carpeta de este total
+    nm=$(echo "$[$(grep "^T*" /var/respaldos/master| wc -l)+1]") #Nos devuleve el numero del respaldo total 
+    mkdir /var/respaldos/T$nm #Creamos la carpeta de este total
 
     #Creamos la carpeta BBDD con todos los archivos de la BBDD
     if test -d /opt/IBM/Informix_Software_Bundle/
     then
-        persistirBBDD "/var/respaldos/T$NumeroMaster/informix"
-        tar cvzf var/respaldos/T$NumeroMaster/T$NumeroMaster.tgz -g var/respaldos/T$NumeroMaster.snar /var/respaldos/T$NumeroMaster/informix var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
+        persistirBBDD "/var/respaldos/T$nm/informix"
+        tar cvzf var/respaldos/T$nm/T$nm.tgz -g var/respaldos/T$nm.snar /var/respaldos/T$nm/informix var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
         #rm -rf "/var/respaldos/T$NumeroMaster/informix"
     else
-        tar cvzf var/respaldos/T$NumeroMaster/T$NumeroMaster.tgz -g var/respaldos/T$NumeroMaster.snar var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
+        tar cvzf var/respaldos/T$nm/T$nm.tgz -g var/respaldos/T$nm.snar var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
     fi
     sed -i 's/^\(.\+\):ACTUAL:\(.\+\)$/\1:ANTERIOR:\2/' /var/respaldos/master
-    echo "T$NumeroMaster:T:$(date):ACTUAL:" >> /var/respaldos/master
+    echo "T$nm:T:$(date):ACTUAL:" >> /var/respaldos/master
 }
 
 function totalManual()
