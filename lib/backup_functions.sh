@@ -2,110 +2,108 @@
 #VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 function crearTotal()
 {
-    echo "j"
     source /var/DataConfiguracionABMusuariosSO/lib/FuncionesBBDD.sh
-    echo "h"
     if ! [ -d "/var/respaldos" ] #Si la carpeta de los respaldos no existe la creamos 
     then
        mkdir /var/respaldos
        touch /var/respaldos/master
-       mkdir /var/respaldos/BBDD #Carpeta con los archivos a respladar
     fi
     if ! [ -d "/var/respaldos/master" ] #Si la carpeta de los respaldos no existe la creamos 
     then
        touch /var/respaldos/master
-       mkdir /var/respaldos/BBDD #Carpeta con los archivos a respladar
     fi
 
-    echo "c1"
-    nm=$(echo "$[$(grep "^T*" /var/respaldos/master| wc -l)+1]") #Nos devuleve el numero del respaldo total 
-    echo "c2"
+    nm=$(echo "$[$(grep ":T:" /var/respaldos/master| wc -l)+1]") #Nos devuleve el numero del respaldo total 
     mkdir /var/respaldos/T$nm #Creamos la carpeta de este total
 
-    #Creamos la carpeta BBDD con todos los archivos de la BBDD
+    #Creamos la carpeta y comprimimos
+     echo "Comprimiendo...."
     if test -d /opt/IBM/Informix_Software_Bundle/
     then
         persistirBBDD "/var/respaldos/T$nm/informix"
-        echo "c3"
-        tar -cvzf /var/respaldos/T$nm/T$nm.tgz -g var/respaldos/T$nm.snar /var/respaldos/T$nm/informix var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
+        tar -cvzf /var/respaldos/T$nm/T$nm.tgz -g /var/respaldos/T$nm/T$nm.snar /var/respaldos/T$nm/informix var/log/btmp.* var/log/wtmp.* var/log/messages.* /home > /dev/null #Creo el Tar con los datos
         #rm -rf "/var/respaldos/T$NumeroMaster/informix"
     else
-        tar -cvzf /var/respaldos/T$nm/T$nm.tgz -g var/respaldos/T$nm.snar var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
+        tar -cvzf /var/respaldos/T$nm/T$nm.tgz -g /var/respaldos/T$nm.snar var/log/btmp.* var/log/wtmp.* var/log/messages.* /home > /dev/null  #Creo el Tar con los datos
     fi
-    sed -i 's/^\(.\+\):ACTUAL:\(.\+\)$/\1:ANTERIOR:\2/' /var/respaldos/master
-    echo "T$nm:T:$(date):ACTUAL:" >> /var/respaldos/master
+    sed -i 's/^\(.*\):ACTUAL:\(.*\)$/\1:ANTERIOR:\2/' /var/respaldos/master
+    echo "T$nm:T:$(date +"%Y-%m-%d %H:%M:%S"):ACTUAL:" >> /var/respaldos/master
 }
 
-function totalManual()
+function totalManual2()
 {
     crearTotal;
-    echo "Total creado: $bname"
+    echo "Total creado"
     read k
-}
-
-function crearDiferencial()
-{
-    source /var/DataConfiguracionABMusuariosSO/lib/FuncionesBBDD
-    if ! [ -d "var/respaldos" ] || [$(grep ":ACTUAL:" /var/respaldos/master| wc -l) -eq 0] #Si la carpeta de los respaldos no existe la creamos 
-    then
-       echo "Error, debe primero realizar un Backup total"
-       return 
-    fi
-
-    NumeroMaster=$[$(grep "^T*" /var/respaldos/master| wc -l)+1] #Nos devuleve el numero del respaldo total 
-    mkdir /var/respaldos/T$NumeroMaster #Creamos la carpeta de este total
-
-    #Creamos la carpeta BBDD con todos los archivos de la BBDD
-    if [-d /opt/IBM]
-    then
-        persistirBBDD "/var/respaldos/T$NumeroMaster/informix"
-        tar cvzf var/respaldos/T$NumeroMaster.tgz -g var/respaldos/T$NumeroMaster.snar /var/respaldos/T$NumeroMaster/informix var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
-        rm -rf "/var/respaldos/T$NumeroMaster/informix"
-    else
-        tar cvzf var/respaldos/T$NumeroMaster.tgz -g var/respaldos/T$NumeroMaster.snar var/log/btmp.* var/log/wtmp.* var/log/messages.* /home #Creo el Tar con los datos
-    fi
-    sed -i 's/^\(.\+\):ACTUAL:\(.\+\)$/\1:ANTERIOR:\2/' /var/respaldos/master
-    echo "T$NumeroMaster:T:$(date):ACTUAL:"
-
 }
 
 function diferencialManual()
 {
     crearDiferencial;
-    echo "Diferencial creado: $bname"
+    echo "Diferencial creado:"
     read k
 }
 
 function crearIncremental()
 {
-    curdir=$(pwd)
-    cd /
+    source /var/DataConfiguracionABMusuariosSO/lib/FuncionesBBDD.sh
+     if ! test -f /var/respaldos/master || test $(grep ":ACTUAL:" /var/respaldos/master| wc -l ) -eq 0
+	then 
+		echo "Error, primero cree un total" 
+		return 
+	fi
 
-    if ! [ -d "var/respaldos" ]
-    then
-        mkdir var/respaldos
-    fi
-    last=$(cat var/respaldos/latest)
-    echo Based on $last
-    bname=incremental_$(date +%d-%m-%Y_%H:%M)
-    echo 'Copying last.snar ($last.snar) to $bname.snar'
-    cp var/respaldos/$last.snar var/respaldos/$bname.snar
-    stat var/respaldos/$last.snar
-    stat var/respaldos/$bname.snar
-    read k
-    tar cvzf var/respaldos/$bname.tgz -g var/respaldos/$bname.snar opt/informix var/log/btmp.* var/log/wtmp.* var/log/messages.*
-    if ! [ -f "var/respaldos/respaldos.csv" ]
-    then
-	echo NOMBRE,DEPENDENCIA > var/respaldos/respaldos.csv
-    fi
-    echo $bname,$last >> var/respaldos/respaldos.csv
-    echo $bname > var/respaldos/latest
-    cd $curdir
-}
+	dep=$(grep ":ACTUAL:" /var/respaldos/master| cut -d: -f1) #Nos devuelve el nombre del respaldo total del que depende
+	Nate=$(grep ":$dep:" /var/respaldos/master| wc -l) #Nos devuelve el numero de respaldos incrementales que tiene como depedencia al anterior roal   
+	if test -d /opt/IBM/Informix_Software_Bundle/
+        then
+		persistirBBDD "/var/respaldos/$dep/informixTemp"
+		for i1 in $(ls /var/respaldos/$dep/informixTemp)
+		do
+			if test -d /var/respaldos/$dep/informixTemp/$i1
+			then
 
-function incrementalManual()
+				for i2 in $(ls /var/respaldos/$dep/informixTemp/$i1)
+				do
+					if test -e /var/respaldos/$dep/informix/$i1/$i2 && test $(diff /var/respaldos/$dep/informixTemp/$i1/$i2 /var/respaldos/$dep/informix/$i1/$i2 | wc -l) -eq 0
+					then 
+						rm -f /var/respaldos/$dep/informixTemp/$i1/$i2
+					else
+						if test ! -d /var/respaldos/$dep/informix/$i1
+						then 
+							mkdir /var/respaldos/$dep/informix/$i1
+						fi
+						'cp' -af /var/respaldos/$dep/informixTemp/$i1/$i2 /var/respaldos/$dep/informix/$i1/$i2
+					fi 
+				done
+				
+			else
+				if test -e /var/respaldos/$dep/informix/$i1 && test $(diff /var/respaldos/$dep/informixTemp/$i1 /var/respaldos/$dep/informix/$i1| wc -l) -eq 0
+				then 
+					rm -f /var/respaldos/$dep/informixTemp/$i1
+				else
+					'cp' -af /var/respaldos/$dep/informixTemp/$i1 /var/respaldos/$dep/informix/$i1
+				fi 
+			fi
+ 
+		if test -d /var/respaldos/$dep/informixTemp/$i1 && test $(ls /var/respaldos/$dep/informixTemp/$i1| wc -l) -eq 0
+		then
+			rm -rf /var/respaldos/$dep/informixTemp/$i1
+		fi
+
+		done
+		tar -cvzf /var/respaldos/$dep/I$Nate-$dep.tgz -g /var/respaldos/$dep/$dep.snar /var/respaldos/$dep/informixTemp/ var/log/btmp.* var/log/wtmp.* var/log/messages.* /home > /dev/null #Creo el Tar con los datos
+		rm -rf /var/respaldos/$dep/informixTemp/
+	else
+		tar -cvzf /var/respaldos/$dep/I$Nate-$dep.tgz -g /var/respaldos/$dep/$dep.snar var/log/btmp.* var/log/wtmp.* var/log/messages.* /home > /dev/null #Creo el Tar con los datos
+	fi
+    
+    	echo "I$Nate-$dep:I:$(date +"%Y-%m-%d %H:%M:%S"):$[$Nate+1]:$dep:" >> /var/respaldos/master
+  }  
+
+function incrementalManual2()
 {
     crearIncremental
-    echo "Incremental creado: $bname"
+    echo "Incremental creado"
     read k
 }

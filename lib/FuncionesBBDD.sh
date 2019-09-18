@@ -28,7 +28,7 @@ comrpobarBBDD()
 persistirBBDD() #ME TIENE QUE PASAR LA RUTA DONDE QUIERE QUE LE MANDE LOS ARCHIVOS 
 {
     actualizarBBDD #Actualizo los datos de la lista de BBDD para asegurar congruencia
-    if [$(wc -l /var/DataConfiguracionABMusuariosSO/Registro/DataBaseNesesarias) -eq 0]
+    if test $(cat /var/DataConfiguracionABMusuariosSO/Registro/DataBaseNesesarias| wc -l) -eq 0
     then
         echo "SIN BASE DE DATOS QUE RESPALDAR"
     else
