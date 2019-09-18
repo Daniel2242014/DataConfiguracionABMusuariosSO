@@ -6,7 +6,7 @@ actualizarBBDD()
     j=0
     for nom in $(cat /var/DataConfiguracionABMusuariosSO/Registro/DataBaseNesesarias)
     do 
-        if [$(dbschema -d $nom| grep "^*Database not found*$"|wc -l) -gt 0 ]
+        if test $(dbschema -d $nom| grep "^*Database not found*$"|wc -l) -gt 0 
         then 
             sed -i '/$nom/d' /var/DataConfiguracionABMusuariosSO/Registro/DataBaseNesesarias
         fi

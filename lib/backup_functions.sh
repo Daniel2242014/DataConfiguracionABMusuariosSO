@@ -3,14 +3,14 @@
 function crearTotal()
 {
     source /var/DataConfiguracionABMusuariosSO/lib/FuncionesBBDD.sh
-    if ! [ -d "var/respaldos" ] #Si la carpeta de los respaldos no existe la creamos 
+    if ! [ -d "/var/respaldos" ] #Si la carpeta de los respaldos no existe la creamos 
     then
        mkdir /var/respaldos
        touch /var/respaldos/master
        mkdir /var/respaldos/BBDD #Carpeta con los archivos a respladar
     fi
 
-    NumeroMaster=$[$(grep "^T*" /var/respaldos/master| wc -l)+1] #Nos devuleve el numero del respaldo total 
+    NumeroMaster=echo $[$(grep "^T*" /var/respaldos/master| wc -l)+1] #Nos devuleve el numero del respaldo total 
     mkdir /var/respaldos/T$NumeroMaster #Creamos la carpeta de este total
 
     #Creamos la carpeta BBDD con todos los archivos de la BBDD
