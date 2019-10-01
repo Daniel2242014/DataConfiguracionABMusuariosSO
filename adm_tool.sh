@@ -104,10 +104,10 @@ then
 		    echo "   _____________________________________________  "
 		    echo "   |                                           | "
 		    echo "   |                                           | "
-		    echo "   |           ABM usuarios y grupos           | "
+		    echo "   |    Centro de computos y Abm usuarios      | "
 		    echo "   |                  por Bit                  | "
-		    echo "   |                                           | "
-		    echo "   |___________________________________________| "	
+		    echo "   |                Vercion 3.0                | "
+		    echo "   |___________________________________________| "
 		    echo "" 
 		    # se carga un array con los nombre de las opciones del menu
 

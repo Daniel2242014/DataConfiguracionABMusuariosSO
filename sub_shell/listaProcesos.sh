@@ -19,7 +19,7 @@ function procesosUsuario()
     respuesta="a"
     while [ "$respuesta" != "" ]
     do
-	verifUser
+	verifUserTODO
 	if [ "$respuesta" != "" ]
 	then
 	    pCount=$(ps -U "$respuesta" -o pid,comm=Proceso | wc -l)
@@ -36,62 +36,69 @@ function procesosUsuario()
 
 function detalleProceso()
 {
-    input=0
-    while [ $input -ge 0 ]
-    do
-	echo -n "Inserte un número de PID (menor que 0 saldrá de la función): "
+	echo -n "Inserte un número de PID (Vacio para salir): "
 	read input
-	if test $input -le 0 2> /dev/null
+	if test -z $input 2>/dev/null
 	then
 		echo "Cancelado, toque enter para continuar"		
 		return 
 	fi
-	if test $(echo "$input" | grep -E "^[0-9]{1,9}$"|wc -l) -eq 1 && test $(ps --pid $input|wc -l) -eq 2
+	
+	verificarPID $input
+	
+	if test $? -eq 1
 	then
-        pCount=$(ps --pid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real | wc -l)
-	    if [ $pCount -eq 0 ]
-	    then
-		echo "No hay procesos con PID=$input..."
-		read k
-	    else
-		_ppid=$(ps --pid $input -o ppid | tail -1)
-		 echo "Se listaran todos los prosesos, ingrese 'q' para salir de la lista"
-	        echo "Ingrese cualquier boton para salir" 
-	        read fff		
-		ps --pid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real | less
-		echo "1 para ver padre, 2 para ver hijos, 3 para salir"
-		read k
-		if [ "$(echo $k | grep -E "^[1-3]{1}$" | wc -l)" -eq 1 ]
-		then
-		    if [ $k -eq 1 ]
-		    then
-			#padre: proceso p / p.pid=input.ppid
-			 echo "Se listaran todos los prosesos, ingrese 'q' para salir de la lista"
-			echo "Ingrese cualquier boton para salir" 
-			read fff
-			ps --pid $_ppid -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real | less 
-			echo "Enter para continuar..."
-			read k
-		    elif [ $k -eq 2 ]
-		    then
-			#hijos: proceso p / input.pid=p.ppid
-			echo "Se listaran todos los prosesos, ingrese 'q' para salir de la lista"
-			echo "Ingrese cualquier boton para salir" 
-			read fff
-			ps --ppid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,euid=UID_Efectivo,ruid=UID_Real, pid=PID | less 
-			echo "Enter para continuar..."
-			read k
-		    fi
-		fi
-	    fi
-	else
-            echo "Proseso no encontrado" 
-	fi
-    done
+		ps --pid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,pid=PID,ppid=PPID
+		ddd=1			
+		while test $ddd -ne 0
+		do 
+			echo "Para ver los hijos (1), para ver el padre (2), para eliminarlo (3), para salir ingrese enter"
+			read ddd
+			if test -z $ddd
+			then
+				echo "Saliendo" 
+				return
+			fi 
+			case $ddd in 
+			1) 
+				ComprobarEHijo $input 
+				if test $? -eq 1 
+				then
+					devolverHijos $input
+				else
+					echo "No hay hijos para este proseso"
+				fi	
+			;;	
+
+			2)
+				ComprobarEPadre $input 
+				if test $? -eq 1 
+				then
+					devolverPadre $input
+					ente=1
+				else
+					echo "No hay padres para este proseso"
+				fi	
+			;;
+
+			3)
+				if ! kill $input
+				then
+				  echo "No se pudo matar al proceso $input"
+				else
+				  echo "Proceso $input tumbado con éxito"
+				fi
+			;;
+		
+			esac 	
+		done	
+
+	else 
+		echo "Error: El proseso cuyo pid es $input no existe"
+	fi	
+	
 }
 
-#ps --pid $(ps --pid 2 -o ppid=PPID) -o comm=pro
-ps --pid 2 -o ppid=PPID | tail -n1 | sed "s/^[ ]*\(.*\)$/\1/"
 
 
 verificarPID()
@@ -108,12 +115,12 @@ verificarPID()
 devolverHijos()
 {
 	sendless
-  	ps --ppid $input -o comm=Proceso,%cpu=CPU,%mem=RAM,pid=PID,ppid=PPID|less 
+  	ps --ppid $1 -o comm=Proceso,%cpu=CPU,%mem=RAM,pid=PID,ppid=PPID|less 
 }
 
 ComprobarEHijo()
 {
-	if test $(ps --ppid $1 -o pid=PID 2> /dev/null| wc -l) - gt 1
+	if test $(ps --ppid $1 -o pid=PID 2> /dev/null| wc -l) -gt 1
 	then
 		return 1
 	else
@@ -123,7 +130,7 @@ ComprobarEHijo()
 
 ComprobarEPadre()
 {
-	if test $(ps --pid $(ps --pid $1 -o ppid=PPID | tail -n1 | sed "s/^[ ]*\(.*\)$/\1/"|tail -n1) -o --pid=PID| wc -l) - gt 1
+	if test $(ps --pid $(ps --pid $1 -o ppid=PPID 2> /dev/null| tail -n1 | sed "s/^[ ]*\(.*\)$/\1/"|tail -n1) -o pid=PID 2> /dev/null | wc -l) -gt 1
 	then
 		return 1
 	else
@@ -150,7 +157,7 @@ function listaProcesos()
 		echo "5) Buscar padre por PID de Hijo"
 		echo "0) Salir"	
 		read data
-		case in $data
+		case $data in
 			1)	
 				todosProcesos
 			;;
@@ -164,31 +171,65 @@ function listaProcesos()
 				ente=0
 				while test $ente -eq 0
 				do
-					echo "Ingrese el PID del proseso a buscar - 0 para salir"
+					echo "Ingrese el PID del proseso a buscar - Nada para salir"
 					read entrada
-					if test $(echo $entrada|grep -e "^[1-9][0-9]*$"| wc -l) -eq 1
+					if test -z $entrada
 					then
-						verificarPID $entrada
-						if test $? -eq 1
+						ente=1
+					else
+						if test $(echo $entrada|grep -e "^[1-9][0-9]*$"| wc -l) -eq 1 || test $(echo $entrada|grep -e "^[0-9]$"| wc -l) -eq 1 
 						then
-							ComprobarEHijo $entrada 
-							if test $? -eq 1 
+							verificarPID $entrada
+							if test $? -eq 1
 							then
-
+								ComprobarEHijo $entrada 
+								if test $? -eq 1 
+								then
+									devolverHijos $entrada
+								else
+									echo "No hay hijos para este proseso"
+								fi	
 							else
-
-							fi	
-						else
-							echo "Error: PID no encontrado"
-						fi
-					else					
-						echo "Error: Formato invalido"
-					fi		 
+								echo "Error: PID no encontrado"
+							fi
+						else					
+							echo "Error: Formato invalido"
+						fi		 
+					fi
 				done
 			;;
 			5)
-
-
+				ente=0
+				while test $ente -eq 0
+				do
+					echo "Ingrese el PID del proseso a buscar - Nada para salir"
+					read entrada
+					if test -z $entrada
+					then
+						ente=1
+					else
+						if test $(echo $entrada|grep -e "^[1-9][0-9]*$"| wc -l) -eq 1 || test $(echo $entrada|grep -e "^[0-9]$"| wc -l) -eq 1 
+						then
+							verificarPID $entrada
+							if test $? -eq 1
+							then
+								ComprobarEPadre $entrada 
+								if test $? -eq 1 
+								then
+									devolverPadre $entrada
+									ente=1
+								else
+									echo "No hay padres para este proseso"
+								fi	
+							else
+								echo "Error: PID no encontrado"
+							fi
+						else					
+							echo "Error: Formato invalido"
+						fi
+					fi		 
+				done
+			
 			;;
 
 			0)
@@ -196,7 +237,7 @@ function listaProcesos()
 			;;
 
 			*)
-
+				echo "Entrada incorrecta"
 			;;
 		esac 
 

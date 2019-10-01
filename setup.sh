@@ -168,10 +168,10 @@ then
 		else
 		    echo "   _____________________________________________  "
 		    echo "   |                                           | "
-		    echo "   |                                           | "
-		    echo "   |           ABM usuarios y grupos           | "
+		    echo "   |        	      INSTALADOR                 | "
+		    echo "   |    Centro de computos y Abm usuarios      | "
 		    echo "   |                  por Bit                  | "
-		    echo "   |                                           | "
+		    echo "   |                Vercion 3.0                | "
 		    echo "   |___________________________________________| "
 		    echo "" 
 		    echo "debe instalar el softare para utilizarlo" 
