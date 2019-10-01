@@ -97,7 +97,7 @@ EOF
 		configurarRed
 		echo "Desea eliminar FirewallD [0=no , 1=si]"
 		read rr
-		case 
+		case $rr in
 			1)
 				systemctl stop firewalld
 				systemctl disable firewalld
@@ -111,7 +111,7 @@ EOF
 
 		echo "Desea eliminar NetworkManager [0=no , 1=si]"
 		read rr
-		case 
+		case $rr in
 			1)
 				systemctl stop NetworkManager
 				systemctl disable NetworkManager
