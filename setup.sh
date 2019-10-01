@@ -95,12 +95,33 @@ EOF
 
 		source /var/DataConfiguracionABMusuariosSO/sub_shell/configurarRed.sh
 		configurarRed
+		echo "Desea eliminar FirewallD [0=no , 1=si]"
+		read rr
+		case 
+			1)
+				systemctl stop firewalld
+				systemctl disable firewalld
+				yum remove firewall
+			;;
 
-		systemctl stop firewalld
-		systemctl disable firewalld
-		systemctl stop NetworkManager
-		systemctl disable NetworkManager
-		yum remove NetworkManager firewalld
+			*)
+				echo "No se prosede"
+			;;
+		esac
+
+		echo "Desea eliminar NetworkManager [0=no , 1=si]"
+		read rr
+		case 
+			1)
+				systemctl stop NetworkManager
+				systemctl disable NetworkManager
+				yum remove NetworkManager
+			;;
+
+			*)
+				echo "No se prosede"
+			;;
+		esac
 		yum install policycoreutils-python git
 		if ! test -d /opt/IBM
 		then
