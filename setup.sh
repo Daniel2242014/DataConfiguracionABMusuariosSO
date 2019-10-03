@@ -140,13 +140,9 @@ EOF
 		iptables -P OUTPUT DROP
 		iptables -P FORWARD DROP
 
-		# puede entrar a la red todo lo que venga por Informix (9088)
-		iptables -A INPUT -p tcp --destination-port 9088 -j ACCEPT
-		iptables -A OUTPUT -p tcp --destination-port 9088 -j ACCEPT
-		iptables -A INPUT -p udp --destination-port 9088 -j ACCEPT
-		iptables -A OUTPUT -p udp --destination-port 9088 -j ACCEPT
+		
 
-		# solo los prog pueden conectarse al servidor por ssh (1112)
+		# solo los prog pueden conectarse al servidor por ssh 
 		iptables -A INPUT -s 192.168.14.0/26 -p tcp --destination-port 20022 -j ACCEPT
 		iptables -A OUTPUT -p tcp --destination-port 20022 -j ACCEPT
 
