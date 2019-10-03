@@ -58,6 +58,11 @@ eliminacionRealInformix()
 {
 	rm -rf /etc/systemd/system/informix.service
 	rm -rf /etc/sysconfig/informix
+	echo "Eliminando reglas de Firewall de informix"
+	iptables -D INPUT -p tcp --destination-port 9088 -j ACCEPT
+	iptables -D OUTPUT -p tcp --destination-port 9088 -j ACCEPT
+	iptables -D INPUT -p udp --destination-port 9088 -j ACCEPT
+	iptables -D OUTPUT -p udp --destination-port 9088 -j ACCEPT
 	sed -i '/sqlexec\|sqlturbo/d' /etc/services
 	sed -i '/vmInformix/d' /etc/hostname
 	sed -i '/192.168.1.100 vmInformix/d' /etc/hosts
@@ -69,4 +74,5 @@ eliminacionRealInformix()
 	rm -rf /opt/IBM
 	userdel informix
 	groupdel informix
+	
 }
