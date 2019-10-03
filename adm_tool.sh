@@ -69,6 +69,7 @@ then
 		    source /var/DataConfiguracionABMusuariosSO/lib/sudoUser.sh
 		    source /var/DataConfiguracionABMusuariosSO/lib/backup_functions.sh
 		    source /var/DataConfiguracionABMusuariosSO/lib/allowed.sh
+	            source /var/DataConfiguracionABMusuariosSO/lib/re_sysmaster.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/agregarUsuario.sh 
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/restaurarBackup.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/ModificarUsuario.sh 
@@ -96,6 +97,8 @@ then
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/estadoServicios.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/send_backups.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/smRedes.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/menuinformix.sh	            
+		
 
 		    carpetaBase='/var/DataConfiguracionABMusuariosSO'
 
@@ -111,9 +114,9 @@ then
 		    echo "" 
 		    # se carga un array con los nombre de las opciones del menu
 
-		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'SSH' 'Estado_Sockets' 'Prosesos' 'Logs_login' 'Backups' 'Servicios' 'Redes')
+		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'SSH' 'Estado_Sockets' 'Prosesos' 'Logs_login' 'Backups' 'Servicios' 'Redes' 'Informix')
 		    # se carga el nombre de los metodos que llaman dichas opciones
-		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'Menussh' 'socketList' 'MenuProsesos' 'MenuLog' 'menuBackUp' 'menuServicios' 'smRedes')
+		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'Menussh' 'socketList' 'MenuProsesos' 'MenuLog' 'menuBackUp' 'menuServicios' 'smRedes' 'menuInformix')
 		    menu 'nombres[@]' 'direcionesSetUp[@]' #se llama al metodo menu
 		fi	
 	    fi

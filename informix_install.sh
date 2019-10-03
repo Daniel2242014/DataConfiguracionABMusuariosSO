@@ -6,8 +6,10 @@ useradd -g informix -s /bin/bash -m informix
 
 echo "postgres" | passwd --stdin informix
 echo "sqlturbo	1526/tcp" >> /etc/services
-echo "sqlexec	1527/tcp" >> /etc/services
-echo "sqlexec -ssl	1527/tcp" >> /etc/services
+echo "sqlexec	9088/tcp" >> /etc/services
+echo "sqlexec	9088/udp" >> /etc/services
+echo "sqlexec -ssl	9089/tcp" >> /etc/services
+echo "sqlexec -ssl	9089/tcp" >> /etc/services
 echo "vmInformix" >> /etc/hostname
 echo "192.168.1.100 vmInformix" >> /etc/hosts
 
@@ -50,6 +52,9 @@ chown informix:informix tempdbs
 touch root_mirror
 chmod 660 root_mirror
 chown informix:informix root_mirror
+touch datosdbs
+chmod 660 datosdbs 
+chown informix:informix datosdbs 
 cd /opt/IBM/Informix_Software_Bundle/etc
 cp onconfig.std onconfig.bit
 sed -i "s/ROOTNAME.*/ROOTNAME rootdbs/" onconfig.bit
