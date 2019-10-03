@@ -123,6 +123,31 @@ EOF
 			;;
 		esac
 		yum install policycoreutils-python git
+		echo "Modificado firewall"	
+
+		semanage port -a -t ssh_port_t -p tcp 20022
+		#Cambiar puerto
+	
+		## FLUSH de reglas
+		iptables -F
+		iptables -X
+		iptables -Z
+		iptables -t nat -F
+
+		## Establecemos politica por defecto
+		iptables -P INPUT DROP
+		iptables -P OUTPUT DROP
+		iptables -P FORWARD DROP
+		iptables -t nat -P PREROUTING DROP
+		iptables -t nat -P POSTROUTING DROP
+
+		# puede entrar a la red todo lo que venga por Informix (9088)
+		iptables -A INPUT -p tcp --destination-port 9088 -j ACCEPT
+
+		# solo los prog pueden conectarse al servidor por ssh (1112)
+		#iptables -A INPUT -s ipprog/SM -p tcp --destination-port 20022 -j ACCEPT
+		iptable -A OUTPUT -p tcp --destination-port 20022 -j ACCEPT
+
 		if ! test -d /opt/IBM
 		then
 			echo "¿Desea ademas instalar el gestor de base de datos Informix? [1=si, 0=no]"
