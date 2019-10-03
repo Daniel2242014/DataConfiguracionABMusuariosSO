@@ -125,15 +125,14 @@ EOF
 		yum install policycoreutils-python git
 		echo "Modificado firewall"	
 
-		semanage port -a -t ssh_port_t -p tcp 20022
-		sed -i "s|#Port 22|Port=20022|" /etc/ssh/sshd_config
-		systemctl restart sshd
+		#semanage port -a -t ssh_port_t -p tcp 20022
+		#sed -i "s|#Port 22|Port=20022|" /etc/ssh/sshd_config
+		#systemctl restart sshd
 	
 		## FLUSH de reglas
 		iptables -F
 		iptables -X
 		iptables -Z
-		iptables -t nat -F
 
 		## Establecemos politica por defecto
 		iptables -P INPUT DROP
