@@ -3,7 +3,14 @@
 desinstalar()
 {
 		#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
- 		if test -d /var/DataConfiguracionABMusuariosSO/
+		
+		source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh 		
+		fireMod0
+
+		semanage port -d -t ssh_port_t -p tcp 200220
+		sed -i "s|Port 20022|#Port 22|" /etc/ssh/sshd_config		
+		
+		if test -d /var/DataConfiguracionABMusuariosSO/
 		then
 			rm -rf /var/DataConfiguracionABMusuariosSO/ #Eliminamos el directorio donde esta instalado el software
 		fi		

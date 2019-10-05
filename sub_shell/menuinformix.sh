@@ -56,8 +56,10 @@ desInformix()
 
 eliminacionRealInformix()
 {
+	source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh 		
+	fireMod0
 	rm -rf /etc/systemd/system/informix.service
-	rm -rf /etc/sysconfig/informix
+	rm -rf /etc/sysconfig/sysconfig.informix
 	echo "Eliminando reglas de Firewall de informix"
 	iptables -D INPUT -p tcp --destination-port 9088 -j ACCEPT
 	iptables -D OUTPUT -p tcp --destination-port 9088 -j ACCEPT

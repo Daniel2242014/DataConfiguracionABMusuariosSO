@@ -3,8 +3,8 @@
 
 Menussh()
 {
- namaes=("Cambiar_clave_ssh" "Crear_Llave_Ssh" "Listar_Usuarios_SSH" "Habilitar_Usuario_SSH" "Deshabilitar_Usuario_SSH")
- fnctns=("cambiarLlave" "crearLlaveSsh" "usuariosConectados" "habilitarSsh" "deshabilitarSsh")
+ namaes=("Cambiar_clave_ssh" "Crear_Llave_Ssh" "Listar_Usuarios_SSH" "Habilitar_Usuario_SSH" "Deshabilitar_Usuario_SSH" "Usuarios_con_Certificado")
+ fnctns=("cambiarLlave" "crearLlaveSsh" "usuariosConectados" "habilitarSsh" "deshabilitarSsh" "listarUsuariosConPssh")
  menu "namaes[@]" "fnctns[@]"
 }
 
@@ -55,6 +55,7 @@ then
 		    clear
 		    #Se importan un conjunto de archivos llenos de metodos a utilizar en la ABM
 		    source /var/DataConfiguracionABMusuariosSO/lib/lib_menu.sh
+                    source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh
 		    source /var/DataConfiguracionABMusuariosSO/lib/DT.sh
 		    source /var/DataConfiguracionABMusuariosSO/lib/expiracionUsuario.sh
 		    source /var/DataConfiguracionABMusuariosSO/lib/FuncionesBBDD.sh
@@ -97,7 +98,9 @@ then
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/estadoServicios.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/send_backups.sh
 		    source /var/DataConfiguracionABMusuariosSO/sub_shell/smRedes.sh
-		    source /var/DataConfiguracionABMusuariosSO/sub_shell/menuinformix.sh	            
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/menuinformix.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/menuFirewall.sh
+		    source /var/DataConfiguracionABMusuariosSO/sub_shell/usuariosConClavePublica.sh	            
 		
 
 		    carpetaBase='/var/DataConfiguracionABMusuariosSO'
@@ -114,9 +117,9 @@ then
 		    echo "" 
 		    # se carga un array con los nombre de las opciones del menu
 
-		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'SSH' 'Estado_Sockets' 'Prosesos' 'Logs_login' 'Backups' 'Servicios' 'Redes' 'Informix')
+		    nombres=('Agregar_usuario' 'Modificar_usuarios' 'Eliminar_usuarios' 'Listar_usuarios' 'Agregar_grupo' 'editar_grupo' 'eliminar_grupo' 'Listar_grupo' 'Editar_preferencias' 'Reinstalar' 'Desinstalar' 'SSH' 'Estado_Sockets' 'Prosesos' 'Logs_login' 'Backups' 'Servicios' 'Redes' 'Informix' 'Firewall')
 		    # se carga el nombre de los metodos que llaman dichas opciones
-		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'Menussh' 'socketList' 'MenuProsesos' 'MenuLog' 'menuBackUp' 'menuServicios' 'smRedes' 'menuInformix')
+		    direcionesSetUp=('agregarUsuario' 'ModificarUsuario' 'eliminarUsuarios' 'listarUsuarios' 'agregarGrupo' 'ModificarGrupo' 'eliminarGrupo' 'MenuListarGrupos' 'Preferencias' 'ConfiguracionDelAmbienteDeTrabajo' 'desinstalar' 'Menussh' 'socketList' 'MenuProsesos' 'MenuLog' 'menuBackUp' 'menuServicios' 'smRedes' 'menuInformix' 'menuFirewall')
 		    menu 'nombres[@]' 'direcionesSetUp[@]' #se llama al metodo menu
 		fi	
 	    fi

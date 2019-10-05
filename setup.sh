@@ -125,25 +125,10 @@ EOF
 		yum install policycoreutils-python git
 		echo "Modificado firewall"	
 
-		#semanage port -a -t ssh_port_t -p tcp 20022
-		#sed -i "s|#Port 22|Port=20022|" /etc/ssh/sshd_config
-		#systemctl restart sshd
+		semanage port -a -t ssh_port_t -p tcp 20022
+		sed -i "s|#Port 22|Port 20022|" /etc/ssh/sshd_config
+		systemctl restart sshd
 	
-		## FLUSH de reglas
-		iptables -F
-		iptables -X
-		iptables -Z
-
-		## Establecemos politica por defecto
-		iptables -P INPUT DROP
-		iptables -P OUTPUT DROP
-		iptables -P FORWARD DROP
-
-		
-
-		# solo los prog pueden conectarse al servidor por ssh 
-		iptables -A INPUT -s 192.168.14.0/26 -p tcp --destination-port 20022 -j ACCEPT
-		iptables -A OUTPUT -p tcp --destination-port 20022 -j ACCEPT
 
 		if ! test -d /opt/IBM
 		then
@@ -151,16 +136,18 @@ EOF
 			read ddd
 			case $ddd in 
 			1)
-			source informix_install.sh 
+				source informix_install.sh 
 			;;
 			*)
-			echo "No se prosedera"
+				echo "No se prosedera"
 			;;
 			esac
 			else
 			echo "Informix ya esta instalado en el sistema"
 		fi
-	
+		touch /var/DataConfiguracionABMusuariosSO/fire.data
+		source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh
+		fireMod1
 		echo "Proseso terminado con exito, ejecute 'source setup.sh' desde la consola"
 		echo "Se recomienda reiniciar el sistema" 
 		read fff	
