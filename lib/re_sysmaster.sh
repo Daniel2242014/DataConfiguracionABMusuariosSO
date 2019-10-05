@@ -6,24 +6,7 @@ sysmaster()
 {
 if test -d /opt/IBM/Informix_Software_Bundle/
 then
-	verif=0
-	if ! test -e /opt/IBM/Informix_Software_Bundle/etc/sysmaster.sql
-	then
-		verif=1
-	else
-		if test -z $1 || test $1 -eq 0
-		then 
-			echo "Sysmaster.sql ya existe, ¿desea continuar? [1=si 0= no]"		
-			read dato 		
-			if test $dato -eq 1 2>/dev/null
-			then
-				verif=1
-			fi
-		fi
-	fi
-
-	if test $verif -eq 1
-	then 
+	
 		if test -e /opt/IBM/Informix_Software_Bundle/etc/conv/rebuildsmi.sh
 		then
 			su informix -c "sh /opt/IBM/Informix_Software_Bundle/etc/conv/rebuildsmi.sh"
@@ -33,8 +16,8 @@ then
 			echo "Toque cualquier boton para salir " 
 			read fff
 		fi 
- 		
-	fi
+ 	
+	
 else
 echo "Instale informix primero "
 		read fff
