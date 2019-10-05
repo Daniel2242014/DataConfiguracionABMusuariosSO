@@ -8,7 +8,5 @@ cp /var/DataConfiguracionABMusuariosSO/sysconfig.informix /etc/sysconfig/sysconf
 systemctl enable informix
 source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh
 fireMod2
-source /var/DataConfiguracionABMusuariosSO/lib/re_sysmaster.sh
-sysmaster '0'
 rm -f /var/DataConfiguracionABMusuariosSO/I_Inxo
 echo "Informix instalado con exito"
