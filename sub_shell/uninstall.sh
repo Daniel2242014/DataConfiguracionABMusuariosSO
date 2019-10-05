@@ -7,7 +7,7 @@ desinstalar()
 		source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh 		
 		fireMod0
 
-		semanage port -d -t ssh_port_t -p tcp 200220
+		semanage port -d -t ssh_port_t -p tcp 20022
 		sed -i "s|Port 20022|#Port 22|" /etc/ssh/sshd_config		
 		
 		if test -d /var/DataConfiguracionABMusuariosSO/

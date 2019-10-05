@@ -56,8 +56,11 @@ desInformix()
 
 eliminacionRealInformix()
 {
-	source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh 		
-	fireMod0
+	if test -e /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh 
+	then	
+		source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh 		
+		fireMod0
+	fi
 	rm -rf /etc/systemd/system/informix.service
 	rm -rf /etc/sysconfig/sysconfig.informix
 	echo "Eliminando reglas de Firewall de informix"

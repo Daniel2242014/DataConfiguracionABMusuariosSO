@@ -179,7 +179,7 @@ then
 		else
 		    echo "   _____________________________________________  "
 		    echo "   |                                           | "
-		    echo "   |        	      INSTALADOR                 | "
+		    echo "   |        	    INSTALADOR                 | "
 		    echo "   |    Centro de computos y Abm usuarios      | "
 		    echo "   |                  por Bit                  | "
 		    echo "   |                Vercion 3.0                | "
