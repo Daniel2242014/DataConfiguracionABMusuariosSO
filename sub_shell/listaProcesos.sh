@@ -82,7 +82,7 @@ function detalleProceso()
 			;;
 
 			3)
-				if ! kill $input
+				if ! kill -p $input
 				then
 				  echo "No se pudo matar al proceso $input"
 				else
