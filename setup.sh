@@ -123,7 +123,7 @@ EOF
 			;;
 		esac
 		yum install policycoreutils-python git
-		echo "Modificado firewall"	
+		yum install iptables-services 	
 
 		semanage port -a -t ssh_port_t -p tcp 20022
 		sed -i "s|#Port 22|Port 20022|" /etc/ssh/sshd_config
