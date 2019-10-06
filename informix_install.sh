@@ -67,7 +67,7 @@ sed -i "s/DBSERVERNAME.*/DBSERVERNAME bit/" onconfig.bit
 sed -i "s/TAPEDEV.*/TAPEDEV \/dev\/null/" onconfig.bit
 sed -i "s/LTAPEDEV.*/LTAPEDEV \/dev\/null/" onconfig.bit
 cat >>/opt/IBM/Informix_Software_Bundle/etc/sqlhosts.std <<EOF
-bit onsoctcp Informix 9088
+bit onsoctcp 192.168.1.100 9088
 EOF
 touch /var/DataConfiguracionABMusuariosSO/I_Inxo
 chmod 770 /opt/IBM
