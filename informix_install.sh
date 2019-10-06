@@ -10,8 +10,8 @@ echo "sqlexec	9088/tcp" >> /etc/services
 echo "sqlexec	9088/udp" >> /etc/services
 echo "sqlexec -ssl	9089/tcp" >> /etc/services
 echo "sqlexec -ssl	9089/tcp" >> /etc/services
-echo "vmInformix" >> /etc/hostname
-echo "192.168.1.100 vmInformix" >> /etc/hosts
+echo "Informix" >> /etc/hostname
+echo "0.0.0.0 Informix" >> /etc/hosts
 
 echo "Descargando archivos de informix...."
 git clone https://github.com/Daniel2242014/Informix2
@@ -67,7 +67,7 @@ sed -i "s/DBSERVERNAME.*/DBSERVERNAME bit/" onconfig.bit
 sed -i "s/TAPEDEV.*/TAPEDEV \/dev\/null/" onconfig.bit
 sed -i "s/LTAPEDEV.*/LTAPEDEV \/dev\/null/" onconfig.bit
 cat >>/opt/IBM/Informix_Software_Bundle/etc/sqlhosts.std <<EOF
-bit onsoctcp 0.0.0.0 9088
+bit onsoctcp Informix 9088
 EOF
 touch /var/DataConfiguracionABMusuariosSO/I_Inxo
 chmod 770 /opt/IBM
