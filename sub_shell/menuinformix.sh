@@ -19,6 +19,8 @@ InsInformix()
 {
 	if ! test -d /opt/IBM/Informix_Software_Bundle
 	then
+		source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh 		
+		fireMod0
 		source /var/DataConfiguracionABMusuariosSO/informix_install.sh
 	else
 		echo "Ya tiene instalado informix, primero eliminelo para volver a instalar"
