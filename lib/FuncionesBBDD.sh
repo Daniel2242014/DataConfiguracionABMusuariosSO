@@ -53,7 +53,7 @@ persistirBBDD() #ME TIENE QUE PASAR LA RUTA DONDE QUIERE QUE LE MANDE LOS ARCHIV
 editarBBDDPermitidas()
 {
 	source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh
-    fireMod0
+    fireMod0 '1'
 	echo "Actualizado lista"
 	actualizarBBDD
 	hhg=0

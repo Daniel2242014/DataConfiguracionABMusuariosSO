@@ -3,7 +3,7 @@
 function crearTotal()
 {
 	source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh
-    fireMod0
+    fireMod0 '1'
     source /var/DataConfiguracionABMusuariosSO/lib/FuncionesBBDD.sh
     if ! [ -d "/var/respaldos" ] #Si la carpeta de los respaldos no existe la creamos 
     then
@@ -64,7 +64,7 @@ function diferencialManual()
 function crearIncremental()
 {
 	source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh
-    fireMod0
+    fireMod0 '1'
     source /var/DataConfiguracionABMusuariosSO/lib/FuncionesBBDD.sh
      if ! test -f /var/respaldos/master || test $(grep ":ACTUAL:" /var/respaldos/master| wc -l ) -eq 0
 	then 
