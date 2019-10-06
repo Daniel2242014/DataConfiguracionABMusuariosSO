@@ -123,8 +123,14 @@ EOF
 			;;
 		esac
 		yum install policycoreutils-python git
-		yum install iptables-services 	
-
+		yum install iptables-services 
+		sed -i 's|IPTABLES_SAVE_ON_STOP="no"|IPTABLES_SAVE_ON_STOP="yes"|' /etc/sysconfig/iptables-config
+		sed -i 's|IPTABLES_SAVE_ON_RESTART="no"|IPTABLES_SAVE_ON_RESTART="yes"|' /etc/sysconfig/iptables-config
+		sed -i 's|IPTABLES_SAVE_COUNTER="no"|IPTABLES_SAVE_COUNTER="yes"|' /etc/sysconfig/iptables-config
+		sed -i 's|IPTABLES_STATUS_NUMERIC="no"|IPTABLES_STATUS_NUMERIC="yes"|' /etc/sysconfig/iptables-config
+		systemctl enable iptables
+		systemctl start iptables
+		chkconfig iptables
 		semanage port -a -t ssh_port_t -p tcp 20022
 		sed -i "s|#Port 22|Port 20022|" /etc/ssh/sshd_config
 		systemctl restart sshd
