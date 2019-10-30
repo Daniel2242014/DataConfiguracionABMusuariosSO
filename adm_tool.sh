@@ -31,7 +31,7 @@ menuBackUp()
 
 menuServicios()
 {
- namaes=('Estado_Servicios' 'Buscar_Servicio')
+ namaes=('Lista_serivicos' 'Buscar_Servicio')
  fnctns=('estadoServicios' 'buscarServicio')
  menu "namaes[@]" "fnctns[@]"
 }
