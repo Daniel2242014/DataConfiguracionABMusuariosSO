@@ -23,8 +23,8 @@ listarSLTA()
 
 MenuLog()
 {
- namaes=("Log_Exitoso" "Log_Fallido" "Logs_Usuarios")
- fnctns=('listarWtmp' 'listarBtmp' 'listarSLTA')
+ namaes=("Log_Exitoso" "Log_Fallido")
+ fnctns=('listarWtmp' 'listarBtmp')
  menu "namaes[@]" "fnctns[@]"
 }
 

@@ -2,7 +2,7 @@
 #VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 function listarWtmp() #Listado con todas las opciones para los ingresos validos 
 {
-    echo "Ingrese 1 para buscar por todo, 2 buscar por usuario, 0 salir "
+    echo "Ingrese 1 para buscar por todo, 2 buscar por usuario, 3 para buscar por fechas 0 salir "
     read dar
     case $dar in 
 	1)

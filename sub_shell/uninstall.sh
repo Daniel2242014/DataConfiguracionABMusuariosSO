@@ -44,7 +44,7 @@ desinstalar() #Encargado de eliminar el sistema
 		echo "\S" > /etc/issue
 		echo "Kernel \r on an \m" >> /etc/issue	#Cargamos el contenido por defecto 
 
-		sed -i '/0 * * * * root bkupScript.sh/d' /etc/crontab
+		sed -i '/bkupScript.sh/d' /etc/crontab
 		sed -i '/0 0 * * * root logrotate /etc/logrot.cfg/d' /etc/crontab		
 		
 		if test -d /opt/IBM
