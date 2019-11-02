@@ -2,7 +2,7 @@
 
 # VERCION 3.0 - 25/10 PRIMERA ENTREGA desarrolado por Bit (3°BD 2019)
 
-menuInformix()
+menuInformix() #Administrar funcionalidades de informix
 {
 
 eu1=('Instaladar_informix' 'Elminar_Informix' 'Restaurar_sysmaster')
@@ -15,7 +15,7 @@ ary2=(${direcionesSetUp[@]})
 
 }
 
-InsInformix()
+InsInformix() #LLama al instalador de informix 
 {
 	if ! test -d /opt/IBM/Informix_Software_Bundle
 	then
@@ -28,7 +28,7 @@ InsInformix()
 	fi
 }
 
-desInformix()
+desInformix() #Administra la eliminacion de informix
 {
 	if test -d /opt/IBM/Informix_Software_Bundle
 	then
@@ -56,30 +56,30 @@ desInformix()
 }
 
 
-eliminacionRealInformix()
+eliminacionRealInformix() #Funcion encarga de la eliminacion real de infromix 
 {
 	if test -e /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh 
 	then	
 		source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh 		
-		fireMod0
+		fireMod0 #Cambiamos el modo del firewall 
 	fi
-	rm -rf /etc/systemd/system/informix.service
+	rm -rf /etc/systemd/system/informix.service #Eliminamos archivos de informix 
 	rm -rf /etc/sysconfig/sysconfig.informix
-	echo "Eliminando reglas de Firewall de informix"
-	iptables -D INPUT -p tcp --destination-port 9088 -j ACCEPT
+	echo "Eliminando reglas de Firewall de informix" #Eliminamos reglas de informix 
+	iptables -D INPUT -p tcp --destination-port 9088 -j ACCEPT 
 	iptables -D OUTPUT -p tcp --destination-port 9088 -j ACCEPT
 	iptables -D INPUT -p udp --destination-port 9088 -j ACCEPT
 	iptables -D OUTPUT -p udp --destination-port 9088 -j ACCEPT
-	sed -i '/sqlexec\|sqlturbo/d' /etc/services
+	sed -i '/sqlexec\|sqlturbo/d' /etc/services #Elimianmos el serivicio 
 	sed -i '/vmInformix/d' /etc/hostname
-	sed -i '/192.168.1.100 vmInformix/d' /etc/hosts
+	sed -i '/192.168.1.100 vmInformix/d' /etc/hosts #Eliminamos el nombre lo relacionado de /etc/hosts
 	rm -rf /etc/profile.d/zz_configInformix.sh
 	echo "Cargando...."
-	/opt/IBM/Informix_Software_Bundle/uninstall/uninstall_server/uninstallserver -i console
+	/opt/IBM/Informix_Software_Bundle/uninstall/uninstall_server/uninstallserver -i console #Llamaos al instalador de informix 
         echo "Esperando a que termine eliminacion en segundo plano"
 	sleep 3
 	rm -rf /opt/IBM
-	userdel informix
+	userdel informix #Eliminamos el usuario de informix 
 	groupdel informix
 	
 }

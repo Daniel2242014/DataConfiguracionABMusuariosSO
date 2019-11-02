@@ -1,5 +1,9 @@
 #!/bin/bash
 #VERCION 3.0 - 1/11 TERCERA ENTREGA desarrolado por Bit (3°BD 2019)
+
+#Conjunto de heramientas que permiten la administracion de los servicios 
+
+
 reinicioExterior()
 {
  if systemctl restart $1
@@ -74,7 +78,7 @@ function mensajesServicio()
 }
 
 #buscar y afectar un servicio
-function buscarServicio() # Muestra y busca servicios 
+function buscarServicio() # Muestra y busca servicios. Tambien se puede tomar acciones de los mismos 
 {
 conff=0
 while test $conff -eq 0
@@ -120,7 +124,7 @@ do
 done
 }
 
-vertodosLosservicios()
+vertodosLosservicios() #Lista todos los servicios 
 {
 	touch $carpetaBase/Temp/listar #Crea la lista temp 
 	cont=1        

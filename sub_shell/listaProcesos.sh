@@ -1,20 +1,20 @@
 #!/bin/bash
 #VERCION 3.0 - 25/10 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
 
-sendless()
+sendless() 
 {
 	echo "Se listaran todos los prosesos, ingrese 'q' para salir de la lista"
 	echo "Ingrese cualquier boton para salir" 
 	read fff
 }
 
-function todosProcesos()
+function todosProcesos() #Muestra todos los prosesos 
 {
     sendless			
     ps axo uid,pid,ppid,stime,time,cmd | less
 }
 
-function procesosUsuario()
+function procesosUsuario() #Filta por usuario 
 {
     respuesta="a"
     while [ "$respuesta" != "" ]
@@ -34,7 +34,7 @@ function procesosUsuario()
     done
 }
 
-function detalleProceso()
+function detalleProceso() #Nos muestra informacion espesifica del proseso selecionado dependendo de su pid. Tambien podemos tomar acciones con el 
 {
 	echo -n "Inserte un número de PID (Vacio para salir): "
 	read input
@@ -101,7 +101,7 @@ function detalleProceso()
 
 
 
-verificarPID()
+verificarPID() #Verifica si un PID existe 
 {
      if test $(ps axo pid | grep  " $1$"|wc -l) -eq 0
 	then
@@ -112,13 +112,13 @@ verificarPID()
 
 }
 
-devolverHijos()
+devolverHijos() #Lista los hijos de un proseso dependiendo de su pid 
 {
 	sendless
   	ps --ppid $1 -o comm=Proceso,%cpu=CPU,%mem=RAM,pid=PID,ppid=PPID|less 
 }
 
-ComprobarEHijo()
+ComprobarEHijo() #Nos compurbea la existencia de proseso hijos 
 {
 	if test $(ps --ppid $1 -o pid=PID 2> /dev/null| wc -l) -gt 1
 	then
@@ -128,7 +128,7 @@ ComprobarEHijo()
 	fi 
 }
 
-ComprobarEPadre()
+ComprobarEPadre() #Nos compurbe la existencia del proseso padre 
 {
 	if test $(ps --pid $(ps --pid $1 -o ppid=PPID 2> /dev/null| tail -n1 | sed "s/^[ ]*\(.*\)$/\1/"|tail -n1) -o pid=PID 2> /dev/null | wc -l) -gt 1
 	then
@@ -138,14 +138,14 @@ ComprobarEPadre()
 	fi 
 }
 
-devolverPadre()
+devolverPadre() # Nos devuelve los datos del proseso padre 
 {
 	sendless
 	ps --pid $(ps --pid $1 -o ppid=PPID | tail -n1 | sed "s/^[ ]*\(.*\)$/\1/"|tail -n1) -o comm=Proceso,%cpu=CPU,%mem=RAM,pid=PID,ppid=PPID|less
 }
 
 
-function listaProcesos()
+function listaProcesos() #Menu que lista todas las funcionalidades de los proseso soportadas por el shell 
 {
 	heh=0
     	while test $heh -eq 0

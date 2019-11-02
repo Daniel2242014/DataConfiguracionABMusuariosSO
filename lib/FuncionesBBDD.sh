@@ -1,7 +1,7 @@
 #!/bin/bash
 #VERCION 3.0 - 25/10 TERCERA ENTREGA desarrolado por Bit (3°BD 2019)
 
-actualizarBBDD()
+actualizarBBDD() #Actualiza la lista de bbdd a respaldar en funcion si mas mismas sigue existiendo 
 {
     j=0
     for nom in $(cat /var/DataConfiguracionABMusuariosSO/Registro/DataBaseNesesarias)
@@ -14,7 +14,7 @@ actualizarBBDD()
 
 }
 
-comrpobarBBDD()
+comrpobarBBDD() #Comprueba que la BBDD siga existiendo 
 {
     if test $(dbschema -d $1| grep "^.*Database not found.*$"|wc -l) -eq 0 
         then 
@@ -50,7 +50,7 @@ persistirBBDD() #ME TIENE QUE PASAR LA RUTA DONDE QUIERE QUE LE MANDE LOS ARCHIV
 
 }
 
-editarBBDDPermitidas()
+editarBBDDPermitidas() #Menu que permite administrar las BBDD a respaldar
 {
 	source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh
     fireMod0 '1'

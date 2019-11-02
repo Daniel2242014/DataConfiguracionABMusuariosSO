@@ -4,6 +4,8 @@ yum install ncurses-compat-libs
 groupadd informix
 useradd -g informix -s /bin/bash -m informix
 
+#Cargamos todos los archivos con las configuracion de informix 
+
 echo "postgres" | passwd --stdin informix
 echo "sqlturbo	1526/tcp" >> /etc/services
 echo "sqlexec	9088/tcp" >> /etc/services
@@ -13,21 +15,24 @@ echo "sqlexec -ssl	9089/tcp" >> /etc/services
 echo "Informix" >> /etc/hostname
 echo "0.0.0.0 Informix" >> /etc/hosts
 
+
 echo "Descargando archivos de informix...."
-git clone https://github.com/Daniel2242014/Informix2
+git clone https://github.com/Daniel2242014/Informix2 # Descargamos los archivos nesesarios de informix 
 cd Informix2
 mkdir descom
 echo "Descomprimiendo...."
-cat informix.tar.001 informix.tar.002 informix.tar.003 informix.tar.004 informix.tar.005 informix.tar.006 informix.tar.007 informix.tar.008 | tar -xvif - -C descom
+cat informix.tar.001 informix.tar.002 informix.tar.003 informix.tar.004 informix.tar.005 informix.tar.006 informix.tar.007 informix.tar.008 | tar -xvif - -C descom #Decomprimios dichos archivos 
 echo "Se prosedera a ingrezar dentro del instalador, por favor ingrese las opciones por defecto"
-descom/ids_install 
+descom/ids_install #Ejecutamos el instalador 
 echo "Esperando que informix termine de instaladr en 2º plano"
-sleep 5
+sleep 5 #Esperamos 5 segundos a que temrine el instalador 
 echo "eliminando archivos de instalacio de informix"
 cd ..
-rm -rf Informix2
+rm -rf Informix2 #Elimianos archivos auxiliarees de la instalacion 
 echo "Realizando configuraciones"
 touch /etc/profile.d/zz_configInformix.sh
+#Cargamos las variables de entorno 
+
 cat >> /etc/profile.d/zz_configInformix.sh<<EOF
 export INFORMIXDIR='/opt/IBM/Informix_Software_Bundle'
 export ONCONFIG=onconfig.bit
@@ -39,6 +44,9 @@ export TERM=vt100
 export TERMCAP='/opt/IBM/Informix_Software_Bundle/etc/termcap'
 EOF
 cd /opt/IBM/Informix_Software_Bundle/
+
+#Creamos los dbspaces nesesarios 
+
 mkdir dbspaces 
 chmod 770 dbspaces
 chown informix:informix dbspaces 
@@ -57,6 +65,7 @@ chmod 660 datosdbs
 chown informix:informix datosdbs 
 cd /opt/IBM/Informix_Software_Bundle/etc
 cp onconfig.std onconfig.bit
+#Cargamos el onconfig.bit
 sed -i "s/ROOTNAME.*/ROOTNAME rootdbs/" onconfig.bit
 sed -i 's/ROOTPATH.*/ROOTPATH \/opt\/IBM\/Informix_Software_Bundle\/dbspaces\/rootdbs/' onconfig.bit
 sed -i "s/ROOTSIZE.*/ROOTSIZE 1000000/" onconfig.bit

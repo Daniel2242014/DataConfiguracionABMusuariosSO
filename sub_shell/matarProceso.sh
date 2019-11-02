@@ -1,6 +1,6 @@
 #!/bin/bash
 #VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
-function killProc()
+function killProc() #PAra matar prosesos
 {
     echo -n "PID del proceso a matar: "
     read pid

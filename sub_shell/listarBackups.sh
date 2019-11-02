@@ -1,6 +1,6 @@
 #!/bin/bash
 #VERCION 3.0 - 25/9 Tercera ENTREGA desarrolado por Bit (3°BD 2019)
-listaReal()
+listaReal() #Lista con todos los backu hechos hatsa el momento 
 {
 	touch $carpetaBase/Temp/listar 
 	con=1
@@ -22,7 +22,7 @@ listaReal()
 	
 }
 
-function listarBackups()
+function listarBackups() #es llamada por el menum, compurbe que la lista pueda ser mostrada y en caso de serla lo hace 
 {
 	if ! test -d /var/respaldos || ! test -f /var/respaldos/master || test $(cat /var/respaldos/master| wc -l) -eq 0
 	then

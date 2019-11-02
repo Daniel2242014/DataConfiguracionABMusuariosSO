@@ -1,6 +1,6 @@
 #!/bin/bash
 #VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
-function listarWtmp()
+function listarWtmp() #Listado con todas las opciones para los ingresos validos 
 {
     echo "Ingrese 1 para buscar por todo, 2 buscar por usuario, 0 salir "
     read dar
@@ -34,7 +34,7 @@ function listarWtmp()
     
 }
 
-function listarBtmp()
+function listarBtmp() #Listado para loslog fallidos
 {
     echo -n "Inserte el usuario cuyos loggeos fallidos desea ver (o deje vacío para ver todos): "
     verifUserTODO
@@ -46,7 +46,7 @@ function listarBtmp()
     done
 }
 
-function buscarPorangoDeFechas()
+function buscarPorangoDeFechas() #Filta por fechas 
 {
     cambiarExUser '3' #Ingreso del limite inferior 
 	if test $(echo $respuesta| grep -e "POR DEFECTO"| wc -l) -eq 1 

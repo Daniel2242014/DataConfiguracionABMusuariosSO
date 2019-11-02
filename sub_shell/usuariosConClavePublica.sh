@@ -1,7 +1,7 @@
 #!/bin/bash
 #VERCION 3.0 - 25/10 TERCERA ENTREGA desarrolado por Bit (3°BD 2019)
 
-listarUsuariosConPssh()
+listarUsuariosConPssh() #Nos muestra los usuarios con ceritifcado dijital 
 {
 	touch $carpetaBase/Temp/listar #Crea la lista temp 
 	hehe=0

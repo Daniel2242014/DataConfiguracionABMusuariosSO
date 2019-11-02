@@ -1,6 +1,6 @@
 #!/bin/bash
 #VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
-function estadoRedes() {
+function estadoRedes() { #nos permite ver el estado de la red 
     ip addr | grep "BROADCAST" | while read network
 	do
 	#calcular ips de red, broadcast, gateway

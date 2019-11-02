@@ -1,6 +1,6 @@
 #!/bin/bash
 #VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
-function crearTotal()
+function crearTotal() # Nos permite crear un backup de tipo total 
 {
 	source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh
     fireMod0 '1'
@@ -31,7 +31,7 @@ function crearTotal()
     sed -i 's/^\(.*\):ACTUAL:\(.*\)$/\1:ANTERIOR:\2/' /var/respaldos/master
     echo "T$nm:T:$(date +"%Y-%m-%d %H:%M:%S"):ACTUAL:" >> /var/respaldos/master
 	fufu=$(cat /var/DataConfiguracionABMusuariosSO/fire.data)
-			case $fufu in
+			case $fufu in # Volvemos a cambiar el modo del firewall a como estaba antes 
 			0) 
 				fireMod0
 			;;
@@ -61,7 +61,7 @@ function diferencialManual()
     read k
 }
 
-function crearIncremental()
+function crearIncremental() #Nos permite crear un backup incrementral a partir del ultimo incremental de esta linea
 {
 	source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh
     fireMod0 '1'

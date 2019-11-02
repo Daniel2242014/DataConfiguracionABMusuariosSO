@@ -1,7 +1,7 @@
 #!/bin/bash
 #VERCION 3.0 - 25/9 Tercera ENTREGA desarrolado por Bit (3°BD 2019)
 
-restaturarReal()
+restaturarReal() #Restaura los backup selecionado 
 {
 	source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh
          fireMod0 '1'
@@ -60,7 +60,7 @@ restaturarReal()
 	read kkk
 }
 
-restaurarBBDD()
+restaurarBBDD() #Administra la recuperacion de la base de datos dicha 
 {
 	source /var/DataConfiguracionABMusuariosSO/lib/FuncionesBBDD.sh
 	ruu=$(pwd)
@@ -77,7 +77,7 @@ restaurarBBDD()
 	cd $ruu
 }
 
-restaurar2()
+restaurar2() #Menu antes de restaurar, para ver informacion de los mismos. Llamado por el menu 
 {
 	if ! test -d /var/respaldos || ! test -f /var/respaldos/master || test $(cat /var/respaldos/master| wc -l) -eq 0
 	then

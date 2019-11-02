@@ -2,7 +2,7 @@
 
 # VERCION 3.0 - 25/10 PRIMERA ENTREGA desarrolado por Bit (3°BD 2019)
 
-sysmaster()
+sysmaster() #Permite restaurar el sysmaster por medio de heramientas de informix 
 {
 if test -d /opt/IBM/Informix_Software_Bundle/
 then

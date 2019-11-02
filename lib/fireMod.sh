@@ -1,6 +1,10 @@
 #!/bin/bash
 #VERCION 3.0 - 25/10 TERCERA ENTREGA desarrolado por Bit (3°BD 2019)
 
+#La idea es porder darle al administrador multiples heramientas para poder administrar el firewall, de esta forma puede bloquear determiandos puertos de forma predeterinada por medio del modo elegido 
+ #Dbaccess y git solo andna con el modo 1 
+
+
 fireMod1() 
 {
  fluchFire

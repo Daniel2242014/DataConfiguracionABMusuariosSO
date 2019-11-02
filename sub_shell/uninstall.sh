@@ -1,14 +1,14 @@
 #!/bin/bash
 #VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
-desinstalar()
+desinstalar() #Encargado de eliminar el sistema 
 {
 		#Subido en la direcion url que se puede ver en la linea anterior se tiene subido todos los shell script y funciones nesesarias para el correcto funcionamiento de la ABM. De esta forma el usuario no debera tener todos los archivos, solamente el shell setup para la instalacion
 		
 		source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh 		
 		fireMod0
 
-		semanage port -d -t ssh_port_t -p tcp 20022
-		sed -i "s|Port 20022|#Port 22|" /etc/ssh/sshd_config		
+		semanage port -d -t ssh_port_t -p tcp 20022 #Elimina la regla para el puerto ssh 
+		sed -i "s|Port 20022|#Port 22|" /etc/ssh/sshd_config 		
 		
 		if test -d /var/DataConfiguracionABMusuariosSO/
 		then
@@ -53,7 +53,7 @@ desinstalar()
 		read d 
 		case $d in 
 		1)
-			eliminacionRealInformix
+			eliminacionRealInformix #Llama a la eliminacion de informix 
 		;;
 
 		*)

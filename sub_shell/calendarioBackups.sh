@@ -1,6 +1,6 @@
 #!/bin/bash
 #VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
-function calendarioBackups()
+function calendarioBackups() #Nos muestra los futuros backup a realizar 
 {
     hora=$(date +%H) # hora actual; se mostrarán los backups de las proximas 24 hs
     mes=$(date +%m)  # mes actual, para manejar el caso en que alguna de las proximas 24hs caiga en otro mes

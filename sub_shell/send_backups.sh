@@ -1,6 +1,6 @@
 #!/bin/bash
 #VERCION 2.0 - 4/8 SEGUNDA ENTREGA desarrolado por Bit (3°BD 2019)
-function send_backups()
+function send_backups() #Envia todos los backup al segundo servidor
 {
     source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh
     fireMod0 '1'

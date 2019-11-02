@@ -1,7 +1,7 @@
 #!/bin/bash
 #VERCION 3.0 - 25/10 TERCERA ENTREGA desarrolado por Bit (3°BD 2019)
 
-menuFirewall()
+menuFirewall() #Administrar el modo del firewall 
 {
 	source /var/DataConfiguracionABMusuariosSO/lib/fireMod.sh
 	firemenu=0
