@@ -105,9 +105,14 @@ function configurarRed()
 	then
 		# escribir todo a ifcfg
 	    printf "NAME=%s\nDEVICE=%s\nPEERDNS=yes\nDNS1=%s\n%s\n%s\nIPADDR=%s" \
-		$dev $dev $dnsip "$smask" "$gway" "$ip" > /etc/sysconfig/network-scripts/ifcfg-$dev
+		   $dev $dev $dnsip "$smask" "$gway" "$ip" > /etc/sysconfig/network-scripts/ifcfg-$dev
+	    printf "bit onsoctcp %s 9088" "$ip" > /opt/IBM/Informix_Software_Bundle/etc/sqlhosts.std
 	    ifdown $dev
 	    ifup $dev
+	    if systemctl status informix | grep ": active"; then
+		echo "Reiniciando informix para que tomen efecto las configuraciones"
+		systemctl restart informix
+	    fi
 	fi
     fi
 }
